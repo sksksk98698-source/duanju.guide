@@ -18,6 +18,7 @@ const validRoutes = new Set([
   '/logo.svg',
   '/og-image.svg',
   '/robots.txt',
+  '/sitemap.xml',
   '/sitemap-index.xml',
 ])
 

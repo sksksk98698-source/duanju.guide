@@ -8,23 +8,32 @@ import StickyCTA from '../components/StickyCTA.astro'
 import { SITE } from '../consts'
 import { LINKS } from '../config/links'
 
-const websiteSchema = {
+const homeSchema = {
   '@context': 'https://schema.org',
-  '@type': 'WebSite',
-  name: SITE.title,
-  alternateName: 'duanju.guide',
-  url: SITE.url,
-  description: SITE.description,
-  inLanguage: 'zh-CN',
-  publisher: {
-    '@type': 'Organization',
-    name: SITE.title,
-    url: SITE.url,
-    logo: {
-      '@type': 'ImageObject',
-      url: `${SITE.url}/logo.svg`,
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      name: SITE.title,
+      alternateName: 'duanju.guide',
+      url: SITE.url,
+      description: SITE.description,
+      inLanguage: 'zh-CN',
+      publisher: {
+        '@type': 'Organization',
+        name: SITE.title,
+        url: SITE.url,
+        logo: `${SITE.url}/logo.svg`,
+      },
     },
-  },
+    {
+      '@type': 'Organization',
+      name: SITE.title,
+      alternateName: '黄果短剧指南技术实验室',
+      url: SITE.url,
+      logo: `${SITE.url}/logo.svg`,
+      description: SITE.description,
+    },
+  ],
 }
 ---
 
@@ -32,8 +41,8 @@ const websiteSchema = {
   title={`${SITE.title} - ${SITE.subtitle}`}
   description={`${SITE.description}。致力于帮助用户解决黄果短剧打不开、地区限制、视频加载转圈等访问故障，提供客观、纯净的网络优化指南。`}
   keywords={['黄果短剧', '黄果短剧官网', '黄果短剧打不开', '黄果短剧地区限制', '黄果短剧教程', '看黄果不卡顿', 'duanju.guide']}
-  canonical={SITE.url}
-  schemaData={websiteSchema}
+  canonical={`${SITE.url}/`}
+  schemaData={homeSchema}
 >
   <!-- Hero Section -->
   <section class="relative overflow-hidden bg-gradient-to-b from-teal-50/70 via-white to-white py-16 sm:py-24 border-b border-gray-100 dark:from-teal-950/20 dark:via-gray-950 dark:to-gray-950 dark:border-gray-800">

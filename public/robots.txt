@@ -1,4 +1,20 @@
+# robots.txt for https://duanju.guide
 User-agent: *
 Allow: /
 
+# Major Search Engine Crawlers Explicit Permissions
+User-agent: Googlebot
+Allow: /
+
+User-agent: bingbot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: yisouspider
+Allow: /
+
+# Sitemaps
+Sitemap: https://duanju.guide/sitemap.xml
 Sitemap: https://duanju.guide/sitemap-index.xml

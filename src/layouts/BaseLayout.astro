@@ -9,28 +9,65 @@ interface Props {
   description?: string
   keywords?: string[]
   canonical?: string
-  ogType?: string
+  ogType?: 'website' | 'article'
   schemaData?: Record<string, any>
+  robots?: string
+  publishedTime?: string
+  modifiedTime?: string
+  author?: string
 }
 
 const {
   title,
   description = SITE.description,
   keywords = [],
-  canonical = Astro.url.href,
+  canonical,
   ogType = 'website',
   schemaData,
+  robots = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
+  publishedTime,
+  modifiedTime,
+  author = SITE.author,
 } = Astro.props
 
 const pageTitle = title.includes(SITE.title) ? title : `${title} · ${SITE.title}`
 
+// 统一标准 Canonical URL 生成规则：
+// 1. 始终使用 HTTPS 正式主域名 https://duanju.guide
+// 2. 剥离任何跟踪参数 (UTM 等)，确保规范纯净自引用
+// 3. 严格遵循 directory 模式尾斜杠策略
+let canonicalUrl = canonical
+if (!canonicalUrl) {
+  const cleanPath = Astro.url.pathname.endsWith('/') ? Astro.url.pathname : `${Astro.url.pathname}/`
+  canonicalUrl = new URL(cleanPath, SITE.url).href
+}
+
 const defaultSchema = {
   '@context': 'https://schema.org',
-  '@type': 'WebSite',
-  name: SITE.title,
-  alternateName: 'duanju.guide',
-  url: SITE.url,
-  description: SITE.description,
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      name: SITE.title,
+      alternateName: 'duanju.guide',
+      url: `${SITE.url}/`,
+      description: SITE.description,
+      inLanguage: 'zh-CN',
+      publisher: {
+        '@type': 'Organization',
+        name: SITE.title,
+        url: `${SITE.url}/`,
+        logo: `${SITE.url}/logo.svg`,
+      },
+    },
+    {
+      '@type': 'Organization',
+      name: SITE.title,
+      alternateName: '黄果短剧指南技术评测组',
+      url: `${SITE.url}/`,
+      logo: `${SITE.url}/logo.svg`,
+      description: SITE.description,
+    },
+  ],
 }
 
 const activeSchema = schemaData || defaultSchema
@@ -44,7 +81,14 @@ const activeSchema = schemaData || defaultSchema
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     {keywords.length > 0 && <meta name="keywords" content={keywords.join(', ')} />}
-    <link rel="canonical" href={canonical} />
+    <meta name="robots" content={robots} />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- 搜索引擎站长平台所有权验证 Meta 预留 (直接输出至静态源码，绝不依赖客户端JS) -->
+    {SITE.verification?.google && <meta name="google-site-verification" content={SITE.verification.google} />}
+    {SITE.verification?.bing && <meta name="msvalidate.01" content={SITE.verification.bing} />}
+    {SITE.verification?.baidu && <meta name="baidu-site-verification" content={SITE.verification.baidu} />}
+    {SITE.verification?.shenma && <meta name="shenma-site-verification" content={SITE.verification.shenma} />}
 
     <!-- Favicon & PWA Manifest -->
     <link rel="icon" type="image/svg+xml" href="/logo.svg" />
@@ -53,28 +97,41 @@ const activeSchema = schemaData || defaultSchema
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
-    <!-- Open Graph / Facebook -->
+    <!-- Open Graph / 社交分享卡片规范 -->
     <meta property="og:type" content={ogType} />
-    <meta property="og:url" content={canonical} />
+    <meta property="og:url" content={canonicalUrl} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:site_name" content={SITE.title} />
+    <meta property="og:locale" content="zh_CN" />
     <meta property="og:image" content={`${SITE.url}/og-image.svg`} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content={pageTitle} />
+    {publishedTime && <meta property="article:published_time" content={publishedTime} />}
+    {modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
+    {author && <meta property="article:author" content={author} />}
 
-    <!-- Twitter -->
+    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content={canonical} />
+    <meta name="twitter:url" content={canonicalUrl} />
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={`${SITE.url}/og-image.svg`} />
+    <meta name="twitter:image:alt" content={pageTitle} />
 
-    <!-- JSON-LD Structured Data -->
+    <!-- JSON-LD Structured Data (Schema.org) -->
     <script type="application/ld+json" set:html={JSON.stringify(activeSchema)} />
   </head>
   <body class="min-h-screen flex flex-col bg-white text-gray-900 antialiased dark:bg-gray-950 dark:text-gray-100">
+    <!-- Skip to main content for Accessibility -->
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:px-4 focus:py-2 focus:bg-teal-600 focus:text-white focus:rounded-md shadow-lg"
+    >
+      跳转至主要内容
+    </a>
+
     <Header />
     <main id="main-content" class="flex-1 w-full" data-pagefind-body>
       <slot />

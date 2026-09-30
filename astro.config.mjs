@@ -10,7 +10,12 @@ export default defineConfig({
       applyBaseStyles: false,
     }),
     sitemap({
-      filter: (page) => !page.includes('/draft/') && !page.includes('/mock/'),
+      filter: (page) =>
+        !page.includes('/404') &&
+        !page.includes('/draft/') &&
+        !page.includes('/mock/') &&
+        !page.includes('/admin/') &&
+        !page.includes('/test/'),
     }),
     mdx(),
   ],
