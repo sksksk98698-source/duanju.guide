@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import Card from '../../components/Card.astro'
 import GSYCTA from '../../components/GSYCTA.astro'
+import PlanSavingsCalculator from '../../components/PlanSavingsCalculator.astro'
 import SafetyNotice from '../../components/SafetyNotice.astro'
 import StickyCTA from '../../components/StickyCTA.astro'
 import gsyData from '../../data/gsy.json'
@@ -163,6 +164,9 @@ const schemaData = {
         </div>
       </div>
     </div>
+
+    <!-- Interactive Savings Calculator -->
+    <PlanSavingsCalculator />
 
     <!-- Conversion Component Mounted Directly -->
     <div class="my-10">

@@ -3,6 +3,7 @@ import BaseLayout from './BaseLayout.astro'
 import { SITE } from '../consts'
 import SafetyNotice from '../components/SafetyNotice.astro'
 import GSYCTA from '../components/GSYCTA.astro'
+import PlanSavingsCalculator from '../components/PlanSavingsCalculator.astro'
 
 interface BreadcrumbItem {
   name: string
@@ -172,6 +173,9 @@ const combinedSchema = {
     <article class="prose prose-slate max-w-none py-8 dark:prose-invert prose-headings:font-bold prose-headings:tracking-tight prose-a:text-teal-600 hover:prose-a:text-teal-700 prose-img:rounded-xl">
       <slot />
     </article>
+
+    <!-- Interactive Savings Calculator for GSY Pricing Articles -->
+    {category === 'gsy' && cluster === 'pricing' && <PlanSavingsCalculator />}
 
     <!-- Optional GSY CTA (strictly controlled by showGSY) -->
     {showGSY && <GSYCTA variant="card" />}
