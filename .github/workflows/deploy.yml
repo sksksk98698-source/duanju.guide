@@ -36,3 +36,6 @@ jobs:
 
       - name: Comprehensive QA Inspection
         run: node scripts/qa-check.mjs
+
+      - name: Execute SEO Indexing Safety Barrier Check
+        run: npm run seo:check

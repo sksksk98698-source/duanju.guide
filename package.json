@@ -5,7 +5,11 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build && pagefind --site dist && node scripts/post-build-seo.mjs",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "seo:check": "node scripts/seo-health-check.mjs",
+    "indexnow": "node scripts/indexnow.mjs",
+    "indexnow:all": "node scripts/indexnow.mjs --all",
+    "indexnow:dry": "node scripts/indexnow.mjs --dry-run"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.14",

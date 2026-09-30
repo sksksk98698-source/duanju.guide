@@ -20,6 +20,7 @@ const validRoutes = new Set([
   '/robots.txt',
   '/sitemap.xml',
   '/sitemap-index.xml',
+  '/c0326462ec5e4f48b945c7ad2a4ef69d.txt',
 ])
 
 function scanContentRoutes(dir, collectionName) {
