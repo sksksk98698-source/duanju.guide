@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://duanju.guide/sitemap-index.xml

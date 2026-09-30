@@ -1,0 +1,207 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import Card from '../../components/Card.astro'
+import GSYCTA from '../../components/GSYCTA.astro'
+import SafetyNotice from '../../components/SafetyNotice.astro'
+import DirectVsProxyComparison from '../../components/DirectVsProxyComparison.astro'
+import StickyCTA from '../../components/StickyCTA.astro'
+import { SITE } from '../../consts'
+
+const compareClusters = [
+  {
+    title: '1. 黄果短剧与红果短剧区别',
+    slug: 'huangguo-vs-hongguo',
+    desc: '平台背景、受众定位、版权分发与商业收费模式横向对比。',
+    articles: [
+      {
+        title: '黄果短剧与红果短剧全方位对比：平台背景、内容定位与使用体验横评',
+        href: '/compare/huangguo-vs-hongguo/platform-comparison-2026/',
+        desc: '两家平台的差异是什么？为什么一个在公网顺畅而另一个需要专线支持？',
+        badge: '热门对比',
+      },
+      {
+        title: '商业模式与收费机制对比：IAA免费广告模式 vs IAP付费解锁模式',
+        href: '/compare/huangguo-vs-hongguo/business-model-comparison/',
+        desc: '看广告免费看剧与金币充值解锁对比，短剧制作成本与平台盈利逻辑解析。',
+      },
+      {
+        title: '网络分发架构差异：国内自建 CDN 与全球跨国传输的实际体验鸿沟',
+        href: '/compare/huangguo-vs-hongguo/cdn-architecture-difference/',
+        desc: '火山引擎CDN与海外跨国Anycast分发差异，物理海缆传输延迟深度解析。',
+      },
+    ],
+  },
+  {
+    title: '2. 观看方式体验横评',
+    slug: 'watch-methods',
+    desc: '网页端、原生App、PWA轻应用与大屏投屏的分辨率与性能损耗评测。',
+    articles: [
+      {
+        title: '不同观看方式体验横评：网页端、原生App、PWA轻应用与投屏体验对比',
+        href: '/compare/watch-methods/experience-breakdown/',
+        desc: '电脑浏览器全屏去黑边、手机端原生手势与电视投屏黑屏故障排查。',
+      },
+      {
+        title: '手机 vs 平板 vs 桌面大屏：跨终端观看短剧的分辨率与性能损耗评测',
+        href: '/compare/watch-methods/device-resolution-performance/',
+        desc: '竖屏短剧在4K显示器与iPad上的黑边优化，GPU硬解占用与续航测试。',
+      },
+      {
+        title: '第三方聚合平台 vs 官方正规渠道：内容完整度、画质与潜在风险警示',
+        href: '/compare/watch-methods/official-vs-aggregators/',
+        desc: '网盘资源缺集少集、盗版网站恶意博彩弹窗与官方正版环境安全对比。',
+      },
+    ],
+  },
+  {
+    title: '3. 加速器 vs VPN vs 商业专线 (光速云)',
+    slug: 'accel-vs-vpn',
+    desc: '网络架构、晚高峰丢包率、协议开销与使用短剧视频流体验硬核对比。',
+    articles: [
+      {
+        title: '加速器 vs 普通VPN vs 商业专线（光速云）：架构、延迟与观看短剧体验横评',
+        href: '/compare/accel-vs-vpn/speed-stability-comparison/',
+        desc: '游戏加速器为何看不了短剧？普通VPN为何总断连？IEPL专线核心优势评测。',
+        badge: '核心技术选型',
+      },
+      {
+        title: '公网中继 vs 内网专线 (IEPL/IPLC)：为什么物理专线能做到看短剧不卡顿',
+        href: '/compare/accel-vs-vpn/iepl-iplc-deep-dive/',
+        desc: '物理专线不过GFW骨干网拥堵节点原理，单节点2.5Gbps带宽对视频流的支持。',
+      },
+      {
+        title: '网络工具隐性成本揭秘：频繁掉线、流量虚标与个人数据泄露风险',
+        href: '/compare/accel-vs-vpn/hidden-costs-of-free-tools/',
+        desc: '免费梯子靠什么盈利？廉价机场频繁跑路背后的虚标流量与信息安全隐患。',
+      },
+    ],
+  },
+  {
+    title: '4. 网络安全与防诈防护',
+    slug: 'safety',
+    desc: '公共 Wi-Fi 防护、第三方应用权限最小化审计与账号防盗指南。',
+    articles: [
+      {
+        title: '短剧网络访问安全全景指南：公共 Wi-Fi 风险、钓鱼防范与隐私加密',
+        href: '/compare/safety/anti-fraud-precautions/',
+        desc: '酒店/咖啡馆Wi-Fi防中间人窃听，TLS 1.3安全加密与正规充值辨识。',
+        badge: '安全必读',
+      },
+      {
+        title: '第三方应用权限最小化审计：严控麦克风、相册与通讯录授权',
+        href: '/compare/safety/apk-permission-audit/',
+        desc: '如何彻底拒绝短剧软件不必要的敏感系统权限？保护隐私防越权收集。',
+      },
+      {
+        title: '账号安全防护与防盗号设置：强密码策略与多因子身份验证 (MFA)',
+        href: '/compare/safety/account-security-best-practices/',
+        desc: '防撞库攻击、开启双重验证与异地异常登录报警应急响应措施。',
+      },
+    ],
+  },
+]
+
+const canonicalUrl = new URL('/compare/', SITE.url).href
+const breadcrumbSchema = {
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: '首页', item: SITE.url },
+    { '@type': 'ListItem', position: 2, name: '对比与安全', item: canonicalUrl },
+  ],
+}
+const collectionSchema = {
+  '@type': 'CollectionPage',
+  name: '黄果短剧观看方式对比与网络安全评测 (2026)',
+  description: '客观对比黄果短剧与红果平台差异、不同终端播放体验，深入解析游戏加速器、普通VPN与IEPL内网专线的架构差异与安全防范指南。',
+  url: canonicalUrl,
+  inLanguage: 'zh-CN',
+}
+const schemaData = {
+  '@context': 'https://schema.org',
+  '@graph': [breadcrumbSchema, collectionSchema],
+}
+---
+
+<BaseLayout
+  title="黄果短剧观看方式对比与网络安全评测 (2026)"
+  description="客观对比黄果短剧与红果平台差异、不同终端播放体验，深入解析游戏加速器、普通VPN与IEPL内网专线的架构差异与安全防范指南。"
+  keywords={['黄果短剧和红果区别', '看短剧用什么网络', '加速器对比VPN', '短剧安全', 'IEPL专线']}
+  canonical={canonicalUrl}
+  schemaData={schemaData}
+>
+  <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+    <!-- Header -->
+    <header class="border-b border-gray-100 pb-8 dark:border-gray-800">
+      <div class="flex items-center gap-2 mb-2">
+        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-teal-50 text-teal-700 border border-teal-200 dark:bg-teal-950 dark:text-teal-300 dark:border-teal-900">
+          对比与安全专区
+        </span>
+        <span class="text-xs text-gray-400">共 12 篇深度评测</span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight dark:text-white">
+        黄果短剧观看方式对比与网络安全评测
+      </h1>
+      <p class="mt-3 text-base text-gray-600 dark:text-gray-300 max-w-3xl leading-relaxed">
+        提供客观公正的技术对比，帮助用户理清平台特点、设备播放体验差异，并从网络架构（公网中继 vs 内网专线）层面剖析流畅播放的底层条件。
+      </p>
+    </header>
+
+    <!-- 4 Compare Clusters -->
+    <div class="mt-10 space-y-12">
+      {
+        compareClusters.map((cluster) => (
+          <section>
+            <div class="mb-4">
+              <h2 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                <span class="h-5 w-1.5 rounded-full bg-teal-600"></span>
+                {cluster.title}
+              </h2>
+              <p class="text-xs sm:text-sm text-gray-500 mt-1 dark:text-gray-400">
+                {cluster.desc}
+              </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+              {cluster.articles.map((art) => (
+                <Card
+                  title={art.title}
+                  description={art.desc}
+                  href={art.href}
+                  badge={art.badge}
+                  tag={cluster.slug}
+                />
+              ))}
+            </div>
+          </section>
+        ))
+      }
+    </div>
+
+    <!-- Visual Architecture Comparison Matrix -->
+    <div class="mt-14">
+      <DirectVsProxyComparison />
+    </div>
+
+    <!-- Solution Banner -->
+    <div class="mt-8">
+      <GSYCTA
+        variant="card"
+        title="技术评测优选方案：光速云 IEPL 专线网络"
+        description="经过架构、延迟与晚高峰稳定性综合横评，光速云基于企业级内网专线与VLESS轻量协议，不仅具备单节点最高2.5Gbps的吞吐能力，且年付仅需99元起，是观看跨国短剧的理想方案。"
+        buttonText="查看光速云网络方案 (含推广) →"
+      />
+    </div>
+
+    <!-- Safety Notice -->
+    <div class="mt-8">
+      <SafetyNotice
+        type="warning"
+        title="合规与防范提醒"
+        content="在选择网络工具时，请认准运营年限久、具备明确技术架构声明的正规服务商，远离含有钓鱼广告的所谓破解工具。"
+      />
+    </div>
+  </div>
+
+  <!-- Sticky Bottom CTA -->
+  <StickyCTA />
+</BaseLayout>

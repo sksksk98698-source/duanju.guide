@@ -1,0 +1,218 @@
+---
+import { LINKS } from '../config/links'
+import gsyData from '../data/gsy.json'
+
+interface Props {
+  variant?: 'card' | 'banner' | 'inline'
+  title?: string
+  description?: string
+  buttonText?: string
+  highlightPlan?: 'light' | 'standard' | 'both'
+}
+
+const {
+  variant = 'card',
+  title = '解决黄果短剧卡顿与打不开的最佳网络方案',
+  description = '专线网络直连，单节点最高 2.5Gbps，告别加载转圈与地域限制，多端不限设备畅享。',
+  buttonText = '获取光速云稳定访问方案 →',
+  highlightPlan = 'both',
+} = Astro.props
+
+const lightPlan = gsyData.plans.find((p) => p.id === 'light')
+const standardPlan = gsyData.plans.find((p) => p.id === 'standard')
+---
+
+{
+  variant === 'card' && (
+    <div class="my-8 rounded-2xl border-2 border-teal-500/30 bg-gradient-to-br from-teal-50/50 via-white to-teal-50/20 p-6 sm:p-8 shadow-sm dark:from-teal-950/20 dark:via-gray-900 dark:to-teal-950/10 dark:border-teal-500/40">
+      <!-- Top header with disclosure badge -->
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-2">
+          <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-teal-600 text-white shadow-xs">
+            推荐解决方案
+          </span>
+          <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-amber-50 text-amber-800 border border-amber-200 dark:bg-amber-950/60 dark:text-amber-300 dark:border-amber-800">
+            含推广链接
+          </span>
+        </div>
+        <span class="text-xs text-gray-500 dark:text-gray-400">
+          5年老牌专线 · 原生节点 · 不限设备
+        </span>
+      </div>
+
+      <!-- Title & Headline -->
+      <div class="mt-4">
+        <h3 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
+          {title}
+        </h3>
+        <p class="mt-2 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+          {description}
+        </p>
+      </div>
+
+      <!-- Plan Cards Comparison Grid -->
+      <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+        {/* Light Plan */}
+        {(highlightPlan === 'both' || highlightPlan === 'light') && lightPlan && (
+          <div class="rounded-xl border border-teal-200 bg-white p-5 shadow-xs dark:bg-gray-800 dark:border-teal-900">
+            <div class="flex items-center justify-between">
+              <span class="text-base font-bold text-gray-900 dark:text-white">{lightPlan.name}</span>
+              <span class="text-xs font-semibold px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-950 dark:text-emerald-300">
+                新人8折
+              </span>
+            </div>
+            <div class="mt-3 flex items-baseline gap-1">
+              <span class="text-2xl sm:text-3xl font-extrabold text-teal-700 dark:text-teal-400">99元</span>
+              <span class="text-xs text-gray-500">/ 年 (月均 ~8.25元)</span>
+            </div>
+            <ul class="mt-4 space-y-1.5 text-xs text-gray-600 dark:text-gray-300">
+              <li class="flex items-center gap-1.5">
+                <span class="text-teal-600 font-bold">✓</span> 流量：{lightPlan.traffic}
+              </li>
+              <li class="flex items-center gap-1.5">
+                <span class="text-teal-600 font-bold">✓</span> 线路：{lightPlan.lineType}
+              </li>
+              <li class="flex items-center gap-1.5">
+                <span class="text-teal-600 font-bold">✓</span> 设备：{lightPlan.devices}
+              </li>
+              <li class="flex items-center gap-1.5">
+                <span class="text-teal-600 font-bold">✓</span> 适用：{lightPlan.targetAudience}
+              </li>
+            </ul>
+          </div>
+        )}
+
+        {/* Standard Plan */}
+        {(highlightPlan === 'both' || highlightPlan === 'standard') && standardPlan && (
+          <div class="rounded-xl border-2 border-teal-500 bg-teal-50/40 p-5 shadow-xs dark:bg-teal-950/30 dark:border-teal-600">
+            <div class="flex items-center justify-between">
+              <span class="text-base font-bold text-gray-900 dark:text-white">{standardPlan.name} (推荐)</span>
+              <span class="text-xs font-semibold px-2 py-0.5 rounded bg-teal-600 text-white">
+                全球 IPLC
+              </span>
+            </div>
+            <div class="mt-3 flex items-baseline gap-1">
+              <span class="text-2xl sm:text-3xl font-extrabold text-teal-700 dark:text-teal-400">23元</span>
+              <span class="text-xs text-gray-500">/ 月 (长周期最高7折)</span>
+            </div>
+            <ul class="mt-4 space-y-1.5 text-xs text-gray-600 dark:text-gray-300">
+              <li class="flex items-center gap-1.5">
+                <span class="text-teal-600 font-bold">✓</span> 流量：{standardPlan.traffic}
+              </li>
+              <li class="flex items-center gap-1.5">
+                <span class="text-teal-600 font-bold">✓</span> 速度：{standardPlan.speed}
+              </li>
+              <li class="flex items-center gap-1.5">
+                <span class="text-teal-600 font-bold">✓</span> 线路：全球 IPLC · 全节点 1 倍率
+              </li>
+              <li class="flex items-center gap-1.5">
+                <span class="text-teal-600 font-bold">✓</span> 适用：{standardPlan.targetAudience}
+              </li>
+            </ul>
+          </div>
+        )}
+      </div>
+
+      <!-- Action & Coupon Row -->
+      <div class="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4 pt-5 border-t border-teal-100 dark:border-teal-900/60">
+        <div class="flex items-center gap-2 text-xs text-gray-600 dark:text-gray-400">
+          <span>专属8折优惠码：</span>
+          <button
+            type="button"
+            class="copy-coupon-btn inline-flex items-center gap-1.5 px-2.5 py-1 font-mono font-bold text-teal-700 bg-teal-100 hover:bg-teal-200 rounded border border-teal-300 dark:bg-teal-900/80 dark:text-teal-200 dark:border-teal-700 transition-colors cursor-pointer"
+            data-code="AMM"
+            title="点击复制优惠码"
+          >
+            <code>AMM</code>
+            <span class="copy-tip text-[10px] font-sans font-normal opacity-80 text-teal-800 dark:text-teal-300">点击复制</span>
+          </button>
+        </div>
+        <div class="flex items-center gap-3 w-full sm:w-auto">
+          <a
+            href={LINKS.GSY_REGISTER}
+            target="_blank"
+            rel="nofollow sponsored noopener"
+            class="w-full sm:w-auto text-center inline-flex items-center justify-center px-6 py-3 text-sm font-bold text-white bg-teal-600 hover:bg-teal-700 rounded-lg shadow-sm transition-all hover:shadow hover:-translate-y-0.5"
+          >
+            {buttonText}
+          </a>
+        </div>
+      </div>
+
+      <!-- Mandatory Disclosure Notice -->
+      <p class="mt-4 text-[11px] text-gray-500 dark:text-gray-400 text-center sm:text-left leading-relaxed">
+        * 声明：{gsyData.referral.disclosure}（套餐数据源自品牌方公开信息：{gsyData.verifiedDate}）
+      </p>
+    </div>
+  )
+}
+
+{
+  variant === 'banner' && (
+    <div class="my-6 rounded-xl border border-teal-300 bg-teal-50/70 p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4 dark:bg-teal-950/40 dark:border-teal-800">
+      <div>
+        <div class="flex items-center gap-2 mb-1">
+          <span class="inline-flex px-1.5 py-0.5 rounded text-[10px] font-semibold bg-amber-100 text-amber-800 border border-amber-200">
+            含推广链接
+          </span>
+          <h4 class="text-sm sm:text-base font-bold text-gray-900 dark:text-white">
+            光速云 IEPL 专线 · 秒开高清短剧
+          </h4>
+        </div>
+        <p class="text-xs text-gray-600 dark:text-gray-300">
+          轻量版仅 99元/年，极速版 23元/月，输入优惠码 <strong class="text-teal-700 dark:text-teal-300">AMM</strong> 享新人 8 折。
+        </p>
+      </div>
+      <a
+        href={LINKS.GSY_REGISTER}
+        target="_blank"
+        rel="nofollow sponsored noopener"
+        class="shrink-0 inline-flex items-center px-4 py-2 text-xs font-bold text-white bg-teal-600 hover:bg-teal-700 rounded-lg shadow-xs transition-colors"
+      >
+        直达光速云官网 →
+      </a>
+    </div>
+  )
+}
+
+{
+  variant === 'inline' && (
+    <div class="my-4 p-4 rounded-lg bg-gray-50 border-l-4 border-teal-500 dark:bg-gray-800/80">
+      <div class="flex items-center justify-between gap-2">
+        <p class="text-xs sm:text-sm text-gray-700 dark:text-gray-300">
+          💡 <strong>方案推荐</strong>：遇到海外平台打不开或视频转圈，可使用 <strong>光速云</strong> 企业级专线网络。年付仅需 99 元起（新人 8 折优惠码 <code>AMM</code>）。
+        </p>
+        <a
+          href={LINKS.GSY_REGISTER}
+          target="_blank"
+          rel="nofollow sponsored noopener"
+          class="shrink-0 text-xs font-bold text-teal-600 hover:underline dark:text-teal-400"
+        >
+          查看光速云 [含推广] →
+        </a>
+      </div>
+    </div>
+  )
+}
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.copy-coupon-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const code = btn.getAttribute('data-code') || 'AMM'
+        navigator.clipboard.writeText(code).then(() => {
+          const tip = btn.querySelector('.copy-tip')
+          if (tip) {
+            const original = tip.textContent
+            tip.textContent = '已复制！'
+            tip.classList.add('text-emerald-500', 'font-bold')
+            setTimeout(() => {
+              tip.textContent = original
+              tip.classList.remove('text-emerald-500', 'font-bold')
+            }, 2000)
+          }
+        })
+      })
+    })
+  })
+</script>

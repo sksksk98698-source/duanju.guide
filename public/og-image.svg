@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#042f2e" />
+      <stop offset="40%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#020617" />
+    </linearGradient>
+
+    <!-- Teal Glow Gradient -->
+    <radialGradient id="glow-teal" cx="70%" cy="30%" r="50%">
+      <stop offset="0%" stop-color="#14b8a6" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#14b8a6" stop-opacity="0" />
+    </radialGradient>
+
+    <!-- Badge Gradient -->
+    <linearGradient id="badge-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0d9488" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+
+    <!-- Border Glow -->
+    <linearGradient id="border-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#14b8a6" stop-opacity="0.6" />
+      <stop offset="50%" stop-color="#334155" stop-opacity="0.2" />
+      <stop offset="100%" stop-color="#0d9488" stop-opacity="0.4" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background Base -->
+  <rect width="1200" height="630" fill="url(#bg-grad)" />
+  <rect width="1200" height="630" fill="url(#glow-teal)" />
+
+  <!-- Subtle Grid Lines -->
+  <g stroke="#334155" stroke-width="1" opacity="0.15">
+    <line x1="0" y1="105" x2="1200" y2="105" />
+    <line x1="0" y1="210" x2="1200" y2="210" />
+    <line x1="0" y1="315" x2="1200" y2="315" />
+    <line x1="0" y1="420" x2="1200" y2="420" />
+    <line x1="0" y1="525" x2="1200" y2="525" />
+    <line x1="200" y1="0" x2="200" y2="630" />
+    <line x1="400" y1="0" x2="400" y2="630" />
+    <line x1="600" y1="0" x2="600" y2="630" />
+    <line x1="800" y1="0" x2="800" y2="630" />
+    <line x1="1000" y1="0" x2="1000" y2="630" />
+  </g>
+
+  <!-- Outer Frame -->
+  <rect x="24" y="24" width="1152" height="582" rx="24" fill="none" stroke="url(#border-grad)" stroke-width="2" />
+
+  <!-- Brand Badge (Top Left) -->
+  <g transform="translate(80, 80)">
+    <rect width="360" height="42" rx="21" fill="#134e4a" stroke="#14b8a6" stroke-width="1.5" />
+    <circle cx="24" cy="21" r="6" fill="#2dd4bf" />
+    <text x="42" y="27" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="700" fill="#5eead4" letter-spacing="1">DUANJU.GUIDE · 独立技术指南</text>
+  </g>
+
+  <!-- Brand Logo Icon (Top Right) -->
+  <g transform="translate(1000, 70)">
+    <rect width="90" height="90" rx="22" fill="#0d9488" stroke="#2dd4bf" stroke-width="2" />
+    <polygon points="36,28 64,45 36,62" fill="#ffffff" />
+    <circle cx="72" cy="22" r="5" fill="#5eead4" />
+    <circle cx="72" cy="68" r="5" fill="#5eead4" />
+    <line x1="72" y1="22" x2="72" y2="68" stroke="#5eead4" stroke-width="2" stroke-dasharray="3 3" opacity="0.8" />
+  </g>
+
+  <!-- Main Headline Title -->
+  <text x="80" y="230" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Segoe UI', sans-serif" font-size="56" font-weight="900" fill="#ffffff" letter-spacing="-1">
+    黄果短剧观看与网络优化指南
+  </text>
+
+  <!-- Subtitle Tagline -->
+  <text x="80" y="300" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Segoe UI', sans-serif" font-size="28" font-weight="600" fill="#2dd4bf">
+    入口导航 · 地区限制排查 · 播放卡顿优化 · 光速云IEPL专线推荐
+  </text>
+
+  <!-- Feature Cards Grid (Middle) -->
+  <g transform="translate(80, 350)">
+    <!-- Feature 1 -->
+    <rect x="0" y="0" width="320" height="120" rx="16" fill="#1e293b" fill-opacity="0.8" stroke="#334155" stroke-width="1.5" />
+    <text x="24" y="42" font-size="24">🧭</text>
+    <text x="64" y="44" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif" font-size="18" font-weight="700" fill="#f8fafc">2026 最新官方入口</text>
+    <text x="24" y="82" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif" font-size="14" fill="#94a3b8">防伪防走丢 · 辨别假冒钓鱼镜像</text>
+
+    <!-- Feature 2 -->
+    <rect x="350" y="0" width="320" height="120" rx="16" fill="#1e293b" fill-opacity="0.8" stroke="#334155" stroke-width="1.5" />
+    <text x="374" y="42" font-size="24">⚡</text>
+    <text x="414" y="44" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif" font-size="18" font-weight="700" fill="#f8fafc">地区受限 &amp; 转圈排障</text>
+    <text x="374" y="82" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif" font-size="14" fill="#94a3b8">GeoIP 版权封锁 · 晚高峰丢包优化</text>
+
+    <!-- Feature 3 -->
+    <rect x="700" y="0" width="340" height="120" rx="16" fill="#1e293b" fill-opacity="0.8" stroke="#14b8a6" stroke-width="1.5" />
+    <text x="724" y="42" font-size="24">🚀</text>
+    <text x="764" y="44" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif" font-size="18" font-weight="700" fill="#5eead4">光速云 5年老牌专线</text>
+    <text x="724" y="82" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif" font-size="14" fill="#94a3b8">2.5Gbps IEPL · 码 AMM 享8折</text>
+  </g>
+
+  <!-- Bottom Trust & Compliance Bar -->
+  <g transform="translate(80, 520)">
+    <text x="0" y="24" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif" font-size="14" font-weight="500" fill="#64748b">
+      ✓ 独立第三方技术客观评测  |  ✓ 零盗播资源下载  |  ✓ 零成人内容描述  |  ✓ 仅限 18 周岁以上用户访问
+    </text>
+    <text x="1040" y="24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#14b8a6" text-anchor="end">
+      duanju.guide
+    </text>
+  </g>
+</svg>

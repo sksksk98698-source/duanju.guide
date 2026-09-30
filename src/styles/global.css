@@ -1,0 +1,273 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-brand-50: #f0fdfa;
+  --color-brand-100: #ccfbf1;
+  --color-brand-200: #99f6e4;
+  --color-brand-500: #14b8a6;
+  --color-brand-600: #0d9488;
+  --color-brand-700: #0f766e;
+  --color-bg: #ffffff;
+  --color-bg-alt: #f9fafb;
+  --color-border: #e5e7eb;
+  --color-text: #111827;
+  --color-text-muted: #4b5563;
+}
+
+.dark {
+  --color-bg: #0f0f13;
+  --color-bg-alt: #1a1a24;
+  --color-border: #2a2a35;
+  --color-text: #f9fafb;
+  --color-text-muted: #9ca3af;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.card {
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  background-color: var(--color-bg-alt);
+}
+
+.card:hover {
+  box-shadow: 0 8px 24px -4px rgba(20, 184, 166, 0.12);
+  border-color: var(--color-brand-500);
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: #0d9488;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.15s ease-in-out;
+}
+
+.btn-primary:hover {
+  background-color: #0f766e;
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #1f2937;
+  background-color: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.15s ease-in-out;
+}
+
+.btn-secondary:hover {
+  background-color: #e5e7eb;
+  border-color: #d1d5db;
+}
+
+/* Pagefind UI Customization */
+.pagefind-ui {
+  --pagefind-ui-scale: 0.95;
+  --pagefind-ui-primary: #0d9488;
+  --pagefind-ui-text: #1f2937;
+  --pagefind-ui-background: #ffffff;
+  --pagefind-ui-border: #e5e7eb;
+  --pagefind-ui-tag: #f0fdfa;
+  --pagefind-ui-border-width: 1px;
+  --pagefind-ui-border-radius: 8px;
+  --pagefind-ui-image-border-radius: 8px;
+  --pagefind-ui-image-box-ratio: 3 / 2;
+  --pagefind-ui-font: inherit;
+}
+
+/* Enhanced Prose Typography & Callouts */
+.prose {
+  color: #374151;
+  font-size: 1.05rem;
+  line-height: 1.85;
+}
+
+.dark .prose {
+  color: #d1d5db;
+}
+
+.prose h2 {
+  font-size: 1.65rem;
+  font-weight: 800;
+  color: #111827;
+  margin-top: 2.75rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #f0fdfa;
+  position: relative;
+}
+
+.dark .prose h2 {
+  color: #ffffff;
+  border-bottom-color: #134e4a;
+}
+
+.prose h2::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 2.5rem;
+  height: 2px;
+  background-color: #0d9488;
+}
+
+.prose h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.dark .prose h3 {
+  color: #f3f4f6;
+}
+
+.prose h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #374151;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.dark .prose h4 {
+  color: #e5e7eb;
+}
+
+.prose p {
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+  line-height: 1.85;
+}
+
+.prose ul, .prose ol {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+
+.prose ul {
+  list-style-type: disc;
+}
+
+.prose ol {
+  list-style-type: decimal;
+}
+
+.prose li {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.75;
+}
+
+.prose blockquote {
+  font-style: normal;
+  border-left: 4px solid #0d9488;
+  background-color: #f0fdfa;
+  color: #134e4a;
+  padding: 1rem 1.25rem;
+  border-radius: 0 8px 8px 0;
+  margin: 1.5rem 0;
+}
+
+.dark .prose blockquote {
+  background-color: rgba(15, 118, 110, 0.15);
+  border-left-color: #14b8a6;
+  color: #ccfbf1;
+}
+
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.75rem 0;
+  font-size: 0.95rem;
+}
+
+.prose th {
+  background-color: #f8fafc;
+  color: #0f172a;
+  font-weight: 700;
+  padding: 0.75rem 1rem;
+  border: 1px solid #e2e8f0;
+  text-align: left;
+}
+
+.dark .prose th {
+  background-color: #1e293b;
+  color: #f8fafc;
+  border-color: #334155;
+}
+
+.prose td {
+  padding: 0.75rem 1rem;
+  border: 1px solid #e2e8f0;
+  color: #334155;
+}
+
+.dark .prose td {
+  border-color: #334155;
+  color: #cbd5e1;
+}
+
+.prose code:not(pre code) {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.875em;
+  font-weight: 600;
+  background-color: #f1f5f9;
+  color: #0f766e;
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  border: 1px solid #e2e8f0;
+}
+
+.dark .prose code:not(pre code) {
+  background-color: #1e293b;
+  color: #5eead4;
+  border-color: #334155;
+}
+
+.prose pre {
+  background-color: #0f172a;
+  color: #f8fafc;
+  padding: 1.25rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  border: 1px solid #1e293b;
+}
+
+.prose hr {
+  margin: 2.5rem 0;
+  border-color: #e5e7eb;
+}
+
+.dark .prose hr {
+  border-color: #374151;
+}

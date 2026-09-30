@@ -1,0 +1,283 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import Card from '../../components/Card.astro'
+import GSYCTA from '../../components/GSYCTA.astro'
+import SafetyNotice from '../../components/SafetyNotice.astro'
+import NetworkDiagnostic from '../../components/NetworkDiagnostic.astro'
+import StickyCTA from '../../components/StickyCTA.astro'
+import { SITE } from '../../consts'
+
+const problemClusters = [
+  {
+    title: '1. 打不开与进不去排查',
+    slug: 'cant-open',
+    desc: '域名解析失败、DNS劫持、网页打不开与iOS网络权限受限修复。',
+    articles: [
+      {
+        title: '黄果短剧打不开怎么办？2026最新DNS污染与域名解析排查指南',
+        href: '/problems/cant-open/dns-resolution-failure/',
+        desc: 'DNS_PROBE_FINISHED_NXDOMAIN报错修复，阿里DNS与1.1.1.1配置，刷新本地DNS缓存。',
+        badge: '高频痛点',
+      },
+      {
+        title: '黄果短剧手机客户端打不开：iOS网络权限受限与安全策略修复',
+        href: '/problems/cant-open/network-permission-ios/',
+        desc: '苹果手机提示无网络连接、蜂窝网络设置缺失与重置网络设置全步骤。',
+      },
+      {
+        title: '黄果短剧网页版白屏不显示：浏览器内核报错与缓存清除指南',
+        href: '/problems/cant-open/blank-screen-browser-error/',
+        desc: '控制台ERR_CONNECTION_CLOSED报错、脚本加载超时与浏览器拓展冲突排除。',
+      },
+    ],
+  },
+  {
+    title: '2. 地区限制与跨区访问',
+    slug: 'region-lock',
+    desc: '提示“当前地区无法提供服务”、IP纯净度检测与优质原生节点挑选。',
+    articles: [
+      {
+        title: '黄果短剧显示“当前地区无法提供服务”？地理版权限制原理与解决方案',
+        href: '/problems/region-lock/geoblocking-explained/',
+        desc: '平台地理围栏与IP2Location风控机制剖析，原生住宅与专线节点绕过封锁方案。',
+        badge: '核心转化',
+      },
+      {
+        title: '黄果短剧海外节点选择指南：香港、台湾、新加坡与美区节点测速对比',
+        href: '/problems/region-lock/node-selection-comparison/',
+        desc: '晚高峰延迟与流媒体解锁能力横评，电信/联通/移动三大运营商就近节点推荐。',
+      },
+      {
+        title: 'IP 洁净度与平台风控：为什么免费节点看黄果短剧频繁被封锁',
+        href: '/problems/region-lock/ip-purity-and-risk-control/',
+        desc: '机房公共IP进入流媒体黑名单原因分析，商业级专线独享出口保障稳定。',
+      },
+    ],
+  },
+  {
+    title: '3. 一直转圈与视频卡顿',
+    slug: 'buffering',
+    desc: '晚高峰国际骨干网拥堵、视频切片加载超时与网络抖动深度排查。',
+    articles: [
+      {
+        title: '黄果短剧一直转圈缓冲怎么办？视频流加载卡顿的底层原因与解决',
+        href: '/problems/buffering/video-loading-stuck/',
+        desc: 'HLS分片加载超时分析，大带宽与物理专线直连告别缓冲秒级起播。',
+        badge: '核心痛点',
+      },
+      {
+        title: '晚高峰短剧网络拥堵排查：国际出口丢包与 QoS 限速深度解析',
+        href: '/problems/buffering/peak-hours-congestion/',
+        desc: '晚上8-10点丢包率飙升原理，IEPL/IPLC内网专线如何无视公网晚高峰拥堵。',
+      },
+      {
+        title: '网络高延迟与抖动排查：如何获得低丢包率的短剧网络通道',
+        href: '/problems/buffering/high-latency-troubleshooting/',
+        desc: 'Ping值过高与网络抖动对流媒体连续播放的损害，TCP加速BBR算法调优。',
+      },
+    ],
+  },
+  {
+    title: '4. 客户端闪退与崩溃',
+    slug: 'app-crash',
+    desc: '苹果企业证书掉签、安卓系统WebView过旧与本地损坏缓存清理。',
+    articles: [
+      {
+        title: '黄果短剧 iOS 闪退排查：企业证书撤销、权限异常与应急修复',
+        href: '/problems/app-crash/ios-signature-revoked/',
+        desc: '不受信任的企业开发者弹窗修复，防掉签应急手段与PWA网页轻应用替代方案。',
+      },
+      {
+        title: '黄果短剧安卓客户端崩溃排错：系统兼容性、GPU渲染与依赖缺失',
+        href: '/problems/app-crash/android-system-incompatible/',
+        desc: '华为鸿蒙与小米澎湃系统屡次停止运行解决，强制GPU渲染与WebView兼容。',
+      },
+      {
+        title: '缓存数据损坏导致短剧卡死崩溃：全平台彻底清除残留指南',
+        href: '/problems/app-crash/cache-corruption-fix/',
+        desc: 'IndexedDB数据库损坏与残留垃圾清除，手机存储空间深度释放指南。',
+      },
+    ],
+  },
+  {
+    title: '5. 加载太慢与运营商限速',
+    slug: 'slow',
+    desc: '跨国 CDN Anycast 路由异常、跨网互联结算壁垒与存储优化。',
+    articles: [
+      {
+        title: '黄果短剧加载太慢怎么办？跨国 CDN 调度异常与带宽瓶颈排查',
+        href: '/problems/slow/cdn-routing-bottleneck/',
+        desc: '静态图片与视频分片CDN绕道欧美排查，专线就近中继降低70%延迟。',
+      },
+      {
+        title: '运营商跨网互联限速分析：电信、联通与移动访问短剧体验横评',
+        href: '/problems/slow/isp-throttling-analysis/',
+        desc: '为什么中国移动看外网短剧特别慢？运营商QoS限速机制与规避策略。',
+      },
+      {
+        title: '本地设备存储与浏览器缓存膨胀：释放空间提升短剧加载效率',
+        href: '/problems/slow/cache-bloat-cleanup/',
+        desc: '定期清理短剧分片缓存，优化浏览器无痕模式与后台运存管理。',
+      },
+    ],
+  },
+  {
+    title: '6. 无法访问与 HTTP 错误代码',
+    slug: 'no-access',
+    desc: 'Cloudflare 1020 / 403 Forbidden / 502 网关错误与 SSL 证书报警修复。',
+    articles: [
+      {
+        title: '黄果短剧提示“无法访问此网站”？错误代码 1020 / 403 / 502 深度排错',
+        href: '/problems/no-access/http-error-codes-guide/',
+        desc: 'Cloudflare应用防火墙WAF拦截解决，纯净独享专线出口直连穿透。',
+        badge: '高频报错',
+      },
+      {
+        title: 'SSL 证书错误与安全连接失败：HTTPS 握手异常终极修复方案',
+        href: '/problems/no-access/ssl-certificate-warning/',
+        desc: '“您的连接不是私密连接”警告排查，运营商中间人劫持防范与时间校准。',
+      },
+      {
+        title: '网络环境一键自检与重置：手机与电脑网络协议栈深度清理教程',
+        href: '/problems/no-access/network-stack-reset-tutorial/',
+        desc: 'netsh winsock reset重置Winsock目录，手机还原网络设置与Hosts修复。',
+      },
+    ],
+  },
+]
+
+const canonicalUrl = new URL('/problems/', SITE.url).href
+const breadcrumbSchema = {
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: '首页', item: SITE.url },
+    { '@type': 'ListItem', position: 2, name: '访问问题解决', item: canonicalUrl },
+  ],
+}
+const collectionSchema = {
+  '@type': 'CollectionPage',
+  name: '黄果短剧访问问题排查与解决方案中心 (2026)',
+  description: '收录黄果短剧打不开、地区限制、一直转圈、客户端闪退与无法访问等全部故障的系统排查指南，采用标准化GEO 6步法与商业专线解决方案。',
+  url: canonicalUrl,
+  inLanguage: 'zh-CN',
+}
+const schemaData = {
+  '@context': 'https://schema.org',
+  '@graph': [breadcrumbSchema, collectionSchema],
+}
+---
+
+<BaseLayout
+  title="黄果短剧访问问题排查与解决方案中心 (2026)"
+  description="收录黄果短剧打不开、地区限制、一直转圈、客户端闪退与无法访问等全部故障的系统排查指南，采用标准化GEO 6步法与商业专线解决方案。"
+  keywords={['黄果短剧打不开', '黄果短剧地区限制', '黄果短剧一直转圈', '黄果短剧闪退', '黄果短剧无法访问']}
+  canonical={canonicalUrl}
+  schemaData={schemaData}
+>
+  <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+    <!-- Header -->
+    <header class="border-b border-gray-100 pb-8 dark:border-gray-800">
+      <div class="flex items-center gap-2 mb-2">
+        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-rose-50 text-rose-700 border border-rose-200 dark:bg-rose-950 dark:text-rose-300 dark:border-rose-900">
+          核心转化桥
+        </span>
+        <span class="text-xs text-gray-400">共 18 篇专项排错指南</span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight dark:text-white">
+        黄果短剧访问故障排查与恢复中心
+      </h1>
+      <p class="mt-3 text-base text-gray-600 dark:text-gray-300 max-w-3xl leading-relaxed">
+        针对常见的网页打不开、地域受限提示、视频持续缓冲卡顿等问题，本中心提供遵循 <strong>GEO 6 步法</strong>（直接结论 → 技术根因 → 本地排查 → 工具选型 → 专线方案 → 安全合规）的标准化实战指南。
+      </p>
+    </header>
+
+    <!-- Interactive Network & Region Lock Diagnostic Tool -->
+    <NetworkDiagnostic />
+
+    <!-- Standard 6-Step Methodology Banner -->
+    <div class="my-8 rounded-xl bg-gray-50 border border-gray-200 p-5 dark:bg-gray-900 dark:border-gray-800">
+      <h3 class="text-xs font-bold uppercase tracking-wider text-teal-700 dark:text-teal-400 mb-2">
+        🔍 全站标准化故障排查 6 步法
+      </h3>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 text-xs">
+        <div class="p-2 rounded bg-white border border-gray-100 dark:bg-gray-800 dark:border-gray-700">
+          <strong class="text-teal-600 block">1. 直接答案</strong>
+          <span class="text-gray-500">直击故障根源</span>
+        </div>
+        <div class="p-2 rounded bg-white border border-gray-100 dark:bg-gray-800 dark:border-gray-700">
+          <strong class="text-teal-600 block">2. 常见原因</strong>
+          <span class="text-gray-500">拆解技术成因</span>
+        </div>
+        <div class="p-2 rounded bg-white border border-gray-100 dark:bg-gray-800 dark:border-gray-700">
+          <strong class="text-teal-600 block">3. 排查步骤</strong>
+          <span class="text-gray-500">本地自检与修复</span>
+        </div>
+        <div class="p-2 rounded bg-white border border-gray-100 dark:bg-gray-800 dark:border-gray-700">
+          <strong class="text-teal-600 block">4. 工具选型</strong>
+          <span class="text-gray-500">明确网络要求</span>
+        </div>
+        <div class="p-2 rounded bg-white border border-gray-100 dark:bg-gray-800 dark:border-gray-700">
+          <strong class="text-teal-600 block">5. 专线方案</strong>
+          <span class="text-gray-500">推荐光速云</span>
+        </div>
+        <div class="p-2 rounded bg-white border border-gray-100 dark:bg-gray-800 dark:border-gray-700">
+          <strong class="text-teal-600 block">6. 安全提示</strong>
+          <span class="text-gray-500">防范盗号风险</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6 Problem Clusters -->
+    <div class="space-y-12">
+      {
+        problemClusters.map((cluster) => (
+          <section>
+            <div class="mb-4">
+              <h2 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                <span class="h-5 w-1.5 rounded-full bg-rose-600"></span>
+                {cluster.title}
+              </h2>
+              <p class="text-xs sm:text-sm text-gray-500 mt-1 dark:text-gray-400">
+                {cluster.desc}
+              </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+              {cluster.articles.map((art) => (
+                <Card
+                  title={art.title}
+                  description={art.desc}
+                  href={art.href}
+                  badge={art.badge}
+                  tag={cluster.slug}
+                />
+              ))}
+            </div>
+          </section>
+        ))
+      }
+    </div>
+
+    <!-- Core Bridge Conversion CTA -->
+    <div class="mt-14">
+      <GSYCTA
+        variant="card"
+        title="彻底告别打不开与视频卡顿：光速云专线网络"
+        description="绝大多数访问故障源于公网跨境出口拥堵与DNS阻断。光速云采用IEPL企业内网专线与VLESS轻量传输协议，提供原生洁净节点，从架构层解决短剧播放受阻难题。"
+        buttonText="查看光速云网络方案 (含推广) →"
+      />
+    </div>
+
+    <!-- Safety Notice -->
+    <div class="mt-8">
+      <SafetyNotice
+        type="warning"
+        title="网络安全提示"
+        content="请勿在来历不明的网站输入手机号或账号密码。建议使用正规纯净网络服务商，保护个人财产与网络浏览隐私。"
+      />
+    </div>
+  </div>
+
+  <!-- Bottom Sticky CTA -->
+  <StickyCTA />
+</BaseLayout>

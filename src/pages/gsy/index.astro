@@ -1,0 +1,219 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import Card from '../../components/Card.astro'
+import GSYCTA from '../../components/GSYCTA.astro'
+import SafetyNotice from '../../components/SafetyNotice.astro'
+import StickyCTA from '../../components/StickyCTA.astro'
+import gsyData from '../../data/gsy.json'
+import { SITE } from '../../consts'
+
+const gsyClusters = [
+  {
+    title: '1. 品牌评测与网络架构',
+    slug: 'review',
+    desc: '5年老牌专线服务商实力盘点，IEPL内网物理专线与VLESS协议技术解析。',
+    articles: [
+      {
+        title: '光速云深度评测2026：5年老牌专线服务商实力、架构与稳定性综合报告',
+        href: '/gsy/review-2026/',
+        desc: '运营年限真实核查、晚高峰延迟波动测试与不限设备连接特性全景评测。',
+        badge: '深度报告',
+      },
+      {
+        title: '光速云全球专线网络架构图解：IEPL 企业级专线与 VLESS 协议优势解析',
+        href: '/gsy/network-architecture/',
+        desc: '单节点最高2.5Gbps物理带宽，港台日新美等11国节点覆盖与全节点1倍率。',
+      },
+    ],
+  },
+  {
+    title: '2. 套餐资费与选型攻略',
+    slug: 'pricing',
+    desc: '轻量版 99元/年 与极速版 23元/月规格对比，专属8折优惠码省钱技巧。',
+    articles: [
+      {
+        title: '光速云2026最新套餐价格表：轻量版 99元/年 vs 极速版 23元/月选型指南',
+        href: '/gsy/pricing/plan-comparison-guide/',
+        desc: '月均8.25元59GB流量追剧够不够用？两大主流套餐适合人群与选购建议。',
+        badge: '价格清单',
+      },
+      {
+        title: '光速云优惠码领取与折扣省钱攻略：新人 8 折与长周期阶梯折扣全揭秘',
+        href: '/gsy/pricing/coupon-and-discount-tips/',
+        desc: '输入专属优惠码 AMM 立享8折，半年9折、年付8折、三年付7折阶梯优惠明细。',
+      },
+    ],
+  },
+  {
+    title: '3. 客户端保姆级配置教程',
+    slug: 'tutorial',
+    desc: '覆盖 Windows、macOS、iOS (小火箭) 与 Android 全平台客户端订阅教程。',
+    articles: [
+      {
+        title: '光速云 Windows / macOS 电脑端配置保姆级图文教程 (Clash / v2rayN)',
+        href: '/gsy/tutorial/desktop-setup-guide/',
+        desc: '一键导入订阅节点、开启系统代理与分流模式设置，解决电脑端无法联网。',
+        badge: '全平台教程',
+      },
+      {
+        title: '光速云 iOS (Shadowrocket) / Android (Clash Meta) 手机端配置与常见报错',
+        href: '/gsy/tutorial/mobile-setup-guide/',
+        desc: '手机小火箭扫码配置、分应用代理加速短剧及Wi-Fi与5G自动重连技巧。',
+      },
+    ],
+  },
+  {
+    title: '4. 黄果短剧场景专属适配',
+    slug: 'huangguo',
+    desc: '看短剧专属低延迟节点挑选、流媒体无缝切片缓冲与智能分流省流规则。',
+    articles: [
+      {
+        title: '看黄果短剧为什么首选光速云？专线低延迟、零转圈与多端不限设备实战',
+        href: '/gsy/huangguo/why-choose-gsy-for-short-drama/',
+        desc: '针对短剧高并发分片加载专属优化，彻底告别打不开、白屏与地区限制。',
+        badge: '短剧专享',
+      },
+      {
+        title: '黄果短剧流媒体分流规则配置：直连国内、专线加速短剧的高级策略',
+        href: '/gsy/huangguo/stream-routing-rules/',
+        desc: '配置国内网站直连、只有短剧走专线，59GB月流量轻松支撑追完数十部短剧。',
+      },
+    ],
+  },
+  {
+    title: '5. 售后保障与使用答疑 (FAQ)',
+    slug: 'faq',
+    desc: '节点全红排查、订阅链接更新、多设备合租规范与服务商公平使用政策。',
+    articles: [
+      {
+        title: '光速云常见问题答疑：节点全红、速度变慢、续费与设备连接数排查',
+        href: '/gsy/faq/troubleshooting-and-service-guide/',
+        desc: '刚买连不上自检指南、本地时间误差修复、流量每月重置规则与工单支持。',
+      },
+      {
+        title: '光速云多设备管理与合租规范：不限设备连接的边界与安全防范',
+        href: '/gsy/faq/multi-device-sharing-rules/',
+        desc: '不限设备连接能否共享给朋友？合租防盗号、订阅重置与合理使用规范。',
+      },
+    ],
+  },
+]
+
+const canonicalUrl = new URL('/gsy/', SITE.url).href
+const breadcrumbSchema = {
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: '首页', item: SITE.url },
+    { '@type': 'ListItem', position: 2, name: '光速云专区', item: canonicalUrl },
+  ],
+}
+const collectionSchema = {
+  '@type': 'CollectionPage',
+  name: '光速云短剧专线使用指南与套餐价格 (2026官方资料)',
+  description: '光速云专区提供5年老牌服务商真实资料、IEPL专线规格对比、轻量版99元/年与极速版23元/月套餐分析，以及看短剧专属配置与8折新人优惠指南。',
+  url: canonicalUrl,
+  inLanguage: 'zh-CN',
+}
+const schemaData = {
+  '@context': 'https://schema.org',
+  '@graph': [breadcrumbSchema, collectionSchema],
+}
+---
+
+<BaseLayout
+  title="光速云短剧专线使用指南与套餐价格 (2026官方资料)"
+  description="光速云专区提供5年老牌服务商真实资料、IEPL专线规格对比、轻量版99元/年与极速版23元/月套餐分析，以及看短剧专属配置与8折新人优惠指南。"
+  keywords={['光速云', '光速云套餐', '光速云价格', '光速云优惠码', '光速云短剧专线', '光速云怎么样']}
+  canonical={canonicalUrl}
+  schemaData={schemaData}
+>
+  <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+    <!-- Header -->
+    <header class="border-b border-gray-100 pb-8 dark:border-gray-800">
+      <div class="flex items-center gap-2 mb-2">
+        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-teal-50 text-teal-700 border border-teal-200 dark:bg-teal-950 dark:text-teal-300 dark:border-teal-900">
+          推荐网络方案 · 官方资料
+        </span>
+        <span class="text-xs text-gray-400">核实日期：{gsyData.verifiedDate}</span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight dark:text-white">
+        光速云使用指南与网络方案专区
+      </h1>
+      <p class="mt-3 text-base text-gray-600 dark:text-gray-300 max-w-3xl leading-relaxed">
+        {gsyData.basicInfo.description} 针对流媒体点播切片加载进行了深度线路优化，支持 Windows、macOS、iOS、Android 全平台订阅，是解决看短剧卡顿、打不开与地域限制的核心方案。
+      </p>
+    </header>
+
+    <!-- Brand Data Transparency Bar -->
+    <div class="my-8 rounded-xl bg-teal-50/60 border border-teal-200 p-5 dark:bg-teal-950/20 dark:border-teal-900">
+      <div class="flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-teal-800 dark:text-teal-300">
+            📊 官方品牌资料核验 (真实性第一原则)
+          </span>
+          <p class="text-xs text-teal-700 dark:text-teal-400 mt-1">
+            运营年限：{gsyData.basicInfo.operationYears}年+ ({gsyData.basicInfo.foundedYear}年成立) · 线路类型：{gsyData.lines.types.join(' / ')} · 带宽标准：{gsyData.lines.bandwidth}
+          </p>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-xs text-gray-500 dark:text-gray-400">专属8折优惠码：</span>
+          <code class="px-2.5 py-1 text-sm font-mono font-bold text-teal-700 bg-white rounded border border-teal-300 dark:bg-gray-800 dark:text-teal-300">
+            {gsyData.referral.code}
+          </code>
+        </div>
+      </div>
+    </div>
+
+    <!-- Conversion Component Mounted Directly -->
+    <div class="my-10">
+      <GSYCTA
+        variant="card"
+        title="光速云套餐价格与规格清单"
+        description="支持港、台、日、新、马、美、德、法、英等多地原生节点，全节点 1 倍率，7×24 小时运维监控，不限设备连接。"
+      />
+    </div>
+
+    <!-- 5 Content Clusters Grid -->
+    <div class="mt-14 space-y-12">
+      {
+        gsyClusters.map((cluster) => (
+          <section>
+            <div class="mb-4">
+              <h2 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                <span class="h-5 w-1.5 rounded-full bg-teal-600"></span>
+                {cluster.title}
+              </h2>
+              <p class="text-xs sm:text-sm text-gray-500 mt-1 dark:text-gray-400">
+                {cluster.desc}
+              </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+              {cluster.articles.map((art) => (
+                <Card
+                  title={art.title}
+                  description={art.desc}
+                  href={art.href}
+                  badge={art.badge}
+                  tag={cluster.slug}
+                />
+              ))}
+            </div>
+          </section>
+        ))
+      }
+    </div>
+
+    <!-- Disclosure & Compliance Note -->
+    <div class="mt-14">
+      <SafetyNotice
+        type="info"
+        title="推广披露与透明度声明"
+        content={gsyData.referral.disclosure}
+      />
+    </div>
+  </div>
+
+  <!-- Bottom Sticky CTA -->
+  <StickyCTA />
+</BaseLayout>

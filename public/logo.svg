@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 64" fill="none">
+  <!-- Brand Icon -->
+  <rect x="4" y="8" width="48" height="48" rx="12" fill="#0d9488" />
+  <!-- Play Polygon -->
+  <polygon points="22,22 38,32 22,42" fill="#ffffff" />
+  <!-- Network Node Dots -->
+  <circle cx="44" cy="16" r="3.5" fill="#5eead4" />
+  <circle cx="44" cy="48" r="3.5" fill="#5eead4" />
+  <line x1="44" y1="16" x2="44" y2="48" stroke="#5eead4" stroke-width="1.5" stroke-dasharray="2 2" opacity="0.6" />
+  
+  <!-- Text Brand -->
+  <text x="64" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif" font-size="22" font-weight="700" fill="#0f766e">黄果短剧指南</text>
+  <text x="65" y="49" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif" font-size="11" font-weight="500" fill="#6b7280" letter-spacing="1">duanju.guide · 看黄果 不卡顿</text>
+</svg>

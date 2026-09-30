@@ -1,0 +1,20 @@
+{
+  "name": "黄果短剧观看与网络优化指南",
+  "short_name": "短剧指南",
+  "description": "独立第三方黄果短剧网络访问故障排查指南与光速云专线选型配置全攻略。",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0f172a",
+  "theme_color": "#0d9488",
+  "icons": [
+    {
+      "src": "/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["entertainment", "utilities", "education"],
+  "lang": "zh-CN"
+}

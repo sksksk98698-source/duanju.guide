@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import { SITE } from '../consts'
+---
+
+<BaseLayout
+  title={`页面未找到 (404) · ${SITE.title}`}
+  description="抱歉，您访问的页面不存在或已被移除。请通过以下快捷入口返回黄果短剧指南核心专区。"
+>
+  <div class="mx-auto max-w-3xl px-4 py-20 text-center sm:px-6 lg:px-8">
+    <p class="text-base font-bold text-teal-600 dark:text-teal-400">404 NOT FOUND</p>
+    <h1 class="mt-2 text-3xl sm:text-5xl font-extrabold text-gray-900 tracking-tight dark:text-white">
+      页面未找到
+    </h1>
+    <p class="mt-4 text-sm sm:text-base text-gray-600 dark:text-gray-400 max-w-lg mx-auto">
+      您所寻找的指南页面可能已迁移或链接已失效。您可以搜索相关内容，或通过以下推荐导航快速前往。
+    </p>
+
+    <!-- Quick action links -->
+    <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+      <a href="/" class="btn-primary">
+        返回首页
+      </a>
+      <a href="/guide/official-site/latest-address-2026/" class="btn-secondary">
+        官网入口导航
+      </a>
+      <a href="/problems/cant-open/dns-resolution-failure/" class="btn-secondary">
+        打不开排查
+      </a>
+      <a href="/gsy/" class="btn-secondary">
+        光速云网络方案
+      </a>
+    </div>
+
+    <!-- Pagefind notice -->
+    <div class="mt-12 p-4 rounded-xl border border-gray-200 bg-gray-50 text-xs text-gray-500 dark:bg-gray-900 dark:border-gray-800">
+      💡 提示：您也可以点击顶部右上角的 <strong>搜索</strong> 按钮（快捷键 <code>⌘K</code>），快速查找您需要的排查教程。
+    </div>
+  </div>
+</BaseLayout>

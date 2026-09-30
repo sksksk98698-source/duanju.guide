@@ -1,0 +1,137 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import Card from '../../components/Card.astro'
+import SafetyNotice from '../../components/SafetyNotice.astro'
+import { SITE } from '../../consts'
+
+const aboutPages = [
+  {
+    title: '关于黄果短剧指南 (duanju.guide)',
+    href: '/about/index/',
+    desc: '独立第三方技术指南网站定位、编辑准则、团队背景与技术架构介绍。',
+    tag: '站点定位',
+  },
+  {
+    title: '隐私权保护政策 (Privacy Policy)',
+    href: '/about/privacy/',
+    desc: '严格遵循零日志原则，保护访问者隐私，说明 Cookie 使用与信息最小化收集规范。',
+    tag: '数据隐私',
+  },
+  {
+    title: '服务条款与免责声明 (Terms of Service)',
+    href: '/about/terms/',
+    desc: '明确非官方独立关系、严禁18周岁以下未成年人访问、不提供内容传播服务的法律声明。',
+    tag: '法律条款',
+    badge: '18+限制',
+  },
+  {
+    title: '推广合作与佣金披露声明 (Affiliate Disclosure)',
+    href: '/about/disclosure/',
+    desc: '公开透明披露光速云推荐佣金机制，秉持客观中立评测原则，保障消费者知情权。',
+    tag: '商业透明度',
+  },
+]
+
+const canonicalUrl = new URL('/about/', SITE.url).href
+const breadcrumbSchema = {
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: '首页', item: SITE.url },
+    { '@type': 'ListItem', position: 2, name: '关于与合规', item: canonicalUrl },
+  ],
+}
+const collectionSchema = {
+  '@type': 'CollectionPage',
+  name: '关于我们与法律合规声明 · 黄果短剧指南',
+  description: '黄果短剧指南（duanju.guide）站点定位、独立第三方免责声明、18+未成年人保护政策、隐私权保护与推广合作透明披露。',
+  url: canonicalUrl,
+  inLanguage: 'zh-CN',
+}
+const schemaData = {
+  '@context': 'https://schema.org',
+  '@graph': [breadcrumbSchema, collectionSchema],
+}
+---
+
+<BaseLayout
+  title="关于我们与法律合规声明 · 黄果短剧指南"
+  description="黄果短剧指南（duanju.guide）站点定位、独立第三方免责声明、18+未成年人保护政策、隐私权保护与推广合作透明披露。"
+  keywords={['关于黄果短剧指南', 'duanju.guide', '隐私政策', '服务条款', '免责声明']}
+  canonical={canonicalUrl}
+  schemaData={schemaData}
+>
+  <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+    <!-- Header -->
+    <header class="border-b border-gray-100 pb-8 dark:border-gray-800">
+      <div class="flex items-center gap-2 mb-2">
+        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-gray-100 text-gray-700 border border-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700">
+          站点说明与法律规范
+        </span>
+        <span class="text-xs text-gray-400">更新时间：2026-09-30</span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight dark:text-white">
+        关于黄果短剧指南与合规准则
+      </h1>
+      <p class="mt-3 text-base text-gray-600 dark:text-gray-300 max-w-3xl leading-relaxed">
+        <strong>黄果短剧指南 (duanju.guide)</strong> 致力于为用户提供客观、详尽的网络访问故障排查指引与网络工具选型建议。我们坚决恪守法律法规，坚持内容安全第一与数据真实性第一原则。
+      </p>
+    </header>
+
+    <!-- 4 Sub-pages Grid -->
+    <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
+      {
+        aboutPages.map((page) => (
+          <Card
+            title={page.title}
+            description={page.desc}
+            href={page.href}
+            tag={page.tag}
+            badge={page.badge}
+          />
+        ))
+      }
+    </div>
+
+    <!-- Core Four Strict Principles -->
+    <section class="mt-14 rounded-2xl border border-gray-200 bg-gray-50/70 p-6 sm:p-8 dark:bg-gray-900 dark:border-gray-800">
+      <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">
+        🛡️ 本站四大坚守原则
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm">
+        <div>
+          <h3 class="font-bold text-teal-700 dark:text-teal-400">1. 内容纯净与合规隔离</h3>
+          <p class="text-xs text-gray-600 dark:text-gray-400 mt-1 leading-relaxed">
+            严禁描述任何具体短剧剧情或成人画面，不提供任何形式的直接播放、下载或资源镜像，纯粹聚焦于网络连接与应用故障排错。
+          </p>
+        </div>
+        <div>
+          <h3 class="font-bold text-teal-700 dark:text-teal-400">2. 18+ 年龄严格限制</h3>
+          <p class="text-xs text-gray-600 dark:text-gray-400 mt-1 leading-relaxed">
+            本站服务与所涉技术讨论仅面向具备完全民事行为能力的 18 周岁以上成年人，严禁未成年人涉足相关娱乐平台。
+          </p>
+        </div>
+        <div>
+          <h3 class="font-bold text-teal-700 dark:text-teal-400">3. 数据真实性第一</h3>
+          <p class="text-xs text-gray-600 dark:text-gray-400 mt-1 leading-relaxed">
+            不编造虚假测速跑分、不虚构节点数量、不伪造用户评价。服务商参数均明确标注入库来源与核实日期。
+          </p>
+        </div>
+        <div>
+          <h3 class="font-bold text-teal-700 dark:text-teal-400">4. 推广行为完全透明</h3>
+          <p class="text-xs text-gray-600 dark:text-gray-400 mt-1 leading-relaxed">
+            如页面包含商业合作推荐链接，均显式标注“含推广链接”，采用标准 nofollow sponsored 规范，绝不进行隐蔽诱导。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mandatory Footer Disclaimer -->
+    <div class="mt-8">
+      <SafetyNotice
+        type="adult"
+        title="免责声明全文"
+        content={SITE.footer.disclaimer}
+      />
+    </div>
+  </div>
+</BaseLayout>

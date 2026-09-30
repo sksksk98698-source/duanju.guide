@@ -1,0 +1,99 @@
+---
+---
+
+<button
+  id="search-btn"
+  type="button"
+  class="inline-flex items-center gap-2 px-3 py-1.5 text-xs sm:text-sm font-medium text-gray-500 bg-gray-100/80 hover:bg-gray-200/80 rounded-lg border border-gray-200 transition-colors dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
+  aria-label="搜索全站文章"
+>
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+  </svg>
+  <span class="hidden sm:inline">搜索指南...</span>
+  <span class="sm:hidden">搜索</span>
+  <kbd class="hidden sm:inline-block font-sans px-1.5 py-0.5 text-[10px] font-semibold text-gray-400 bg-white border border-gray-300 rounded shadow-xs dark:bg-gray-700 dark:border-gray-600">⌘K</kbd>
+</button>
+
+<div
+  id="search-modal"
+  class="fixed inset-0 z-50 hidden flex items-start justify-center pt-16 sm:pt-24 px-4 bg-gray-900/60 backdrop-blur-sm transition-opacity"
+  role="dialog"
+  aria-modal="true"
+  aria-label="站内全文搜索"
+>
+  <div class="relative w-full max-w-2xl bg-white rounded-xl shadow-2xl border border-gray-200 dark:bg-gray-900 dark:border-gray-800 overflow-hidden">
+    <div class="flex items-center justify-between px-4 py-3 border-b border-gray-100 dark:border-gray-800">
+      <span class="text-xs font-semibold uppercase tracking-wider text-teal-600 dark:text-teal-400">Pagefind 快速搜索</span>
+      <button
+        id="search-close-btn"
+        type="button"
+        class="text-gray-400 hover:text-gray-600 p-1 rounded-md text-sm dark:hover:text-gray-300"
+        aria-label="关闭搜索弹窗"
+      >
+        <kbd class="px-1.5 py-0.5 text-xs bg-gray-100 border border-gray-200 rounded dark:bg-gray-800 dark:border-gray-700">ESC</kbd>
+      </button>
+    </div>
+    <div class="p-4 sm:p-6 max-h-[70vh] overflow-y-auto">
+      <div id="search-container"></div>
+    </div>
+  </div>
+</div>
+
+<link href="/pagefind/pagefind-ui.css" rel="stylesheet" />
+<script is:inline src="/pagefind/pagefind-ui.js"></script>
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    const btn = document.getElementById('search-btn')
+    const modal = document.getElementById('search-modal')
+    const closeBtn = document.getElementById('search-close-btn')
+
+    const openSearch = () => {
+      modal?.classList.remove('hidden')
+      if (!window.__pagefindInitialized && window.PagefindUI) {
+        new window.PagefindUI({
+          element: '#search-container',
+          showSubResults: true,
+          translations: {
+            placeholder: '搜索短剧入口、打不开、地区限制、光速云...',
+            zero_results: '未找到匹配内容',
+            many_results: '共找到 $RESULTS$ 条匹配指南',
+            one_result: '找到 1 条匹配指南',
+          },
+        })
+        window.__pagefindInitialized = true
+      }
+      // Focus input
+      setTimeout(() => {
+        const input = document.querySelector('#search-container input')
+        input?.focus()
+      }, 100)
+    }
+
+    const closeSearch = () => {
+      modal?.classList.add('hidden')
+    }
+
+    btn?.addEventListener('click', openSearch)
+    closeBtn?.addEventListener('click', closeSearch)
+
+    modal?.addEventListener('click', (e) => {
+      if (e.target === modal) closeSearch()
+    })
+
+    // Keyboard shortcut ⌘K / Ctrl+K and ESC
+    document.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault()
+        if (modal?.classList.contains('hidden')) {
+          openSearch()
+        } else {
+          closeSearch()
+        }
+      }
+      if (e.key === 'Escape' && !modal?.classList.contains('hidden')) {
+        closeSearch()
+      }
+    })
+  })
+</script>

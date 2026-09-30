@@ -1,0 +1,124 @@
+---
+import { LINKS } from '../config/links'
+---
+
+<div class="my-8 rounded-2xl border border-gray-200 bg-white shadow-sm overflow-hidden dark:bg-gray-900 dark:border-gray-800">
+  <div class="bg-gray-50 dark:bg-gray-800/60 px-6 py-4 border-b border-gray-200 dark:border-gray-700 flex flex-wrap items-center justify-between gap-2">
+    <div>
+      <h3 class="text-base sm:text-lg font-extrabold text-gray-900 dark:text-white flex items-center gap-2">
+        <span>⚖️ 播放效果横向对比：国内公网直连 vs 光速云 IEPL 专线</span>
+      </h3>
+      <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+        为什么 1000M 宽带看短剧依然频繁转圈？底层网络传输架构彻底解析
+      </p>
+    </div>
+    <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold bg-amber-50 text-amber-800 border border-amber-200 dark:bg-amber-950 dark:text-amber-300">
+      含推广链接
+    </span>
+  </div>
+
+  <div class="p-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Left: Direct connection (Bad) -->
+      <div class="rounded-xl border border-rose-200 bg-rose-50/40 p-5 dark:bg-rose-950/20 dark:border-rose-900/60">
+        <div class="flex items-center justify-between pb-3 border-b border-rose-200 dark:border-rose-900/60">
+          <span class="text-sm font-bold text-rose-800 dark:text-rose-300 flex items-center gap-1.5">
+            <span>❌</span> 普通国内公网直连
+          </span>
+          <span class="text-[11px] font-semibold px-2 py-0.5 rounded bg-rose-100 text-rose-700 dark:bg-rose-900/60 dark:text-rose-300">
+            极易受阻 / 卡顿
+          </span>
+        </div>
+        <ul class="mt-4 space-y-3 text-xs text-gray-700 dark:text-gray-300">
+          <li class="flex items-start gap-2">
+            <span class="text-rose-500 font-bold shrink-0">✕</span>
+            <div>
+              <strong class="text-gray-900 dark:text-white">地域版权阻断：</strong>
+              <span>识别为非授权区域，直接弹窗“地区受限 / 403 Forbidden”</span>
+            </div>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-rose-500 font-bold shrink-0">✕</span>
+            <div>
+              <strong class="text-gray-900 dark:text-white">晚高峰丢包严重：</strong>
+              <span>国际出口普通骨干网拥挤，丢包率超 25%，播放器持续转圈</span>
+            </div>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-rose-500 font-bold shrink-0">✕</span>
+            <div>
+              <strong class="text-gray-900 dark:text-white">跨洲迂回路由：</strong>
+              <span>公网 RTT 往返延迟常年高于 200~350ms，换集等待时间长</span>
+            </div>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-rose-500 font-bold shrink-0">✕</span>
+            <div>
+              <strong class="text-gray-900 dark:text-white">稳定性脆弱：</strong>
+              <span>受本地运营商 DNS 污染影响，随时可能出现“打不开/网页白屏”</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Right: GSY IEPL (Good) -->
+      <div class="rounded-xl border-2 border-teal-500 bg-teal-50/40 p-5 shadow-sm dark:bg-teal-950/20 dark:border-teal-600">
+        <div class="flex items-center justify-between pb-3 border-b border-teal-200 dark:border-teal-900/60">
+          <span class="text-sm font-bold text-teal-800 dark:text-teal-300 flex items-center gap-1.5">
+            <span>✓</span> 光速云 IEPL 商业专线
+          </span>
+          <span class="text-[11px] font-semibold px-2 py-0.5 rounded bg-teal-600 text-white shadow-xs">
+            极速秒开 / 推荐方案
+          </span>
+        </div>
+        <ul class="mt-4 space-y-3 text-xs text-gray-700 dark:text-gray-300">
+          <li class="flex items-start gap-2">
+            <span class="text-teal-600 font-bold shrink-0">✓</span>
+            <div>
+              <strong class="text-gray-900 dark:text-white">解除地域限制：</strong>
+              <span>海外原生节点，100% 顺畅通过短剧流媒体版权合法鉴权</span>
+            </div>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-teal-600 font-bold shrink-0">✓</span>
+            <div>
+              <strong class="text-gray-900 dark:text-white">0 丢包内网光纤：</strong>
+              <span>点对点物理内网专线传输，晚高峰丢包 &lt; 0.1%，彻底杜绝转圈</span>
+            </div>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-teal-600 font-bold shrink-0">✓</span>
+            <div>
+              <strong class="text-gray-900 dark:text-white">超低延迟直连：</strong>
+              <span>亚洲节点延迟低至 30~50ms，点播切片加载瞬间完成</span>
+            </div>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-teal-600 font-bold shrink-0">✓</span>
+            <div>
+              <strong class="text-gray-900 dark:text-white">多端不限设备：</strong>
+              <span>iOS / Android / Win / Mac 全平台覆盖，一人购买全家共享</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom Action Bar -->
+    <div class="mt-6 pt-5 border-t border-gray-100 dark:border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="text-xs text-gray-600 dark:text-gray-400">
+        💡 <strong>专家结论</strong>：若您正在经历频繁转圈或地区受限，无需反复重装 App，配置专线即可 3 分钟内恢复观看。
+      </div>
+      <div class="flex items-center gap-3 w-full sm:w-auto">
+        <a
+          href={LINKS.GSY_REGISTER}
+          target="_blank"
+          rel="nofollow sponsored noopener"
+          class="w-full sm:w-auto text-center inline-flex items-center justify-center px-6 py-2.5 text-xs sm:text-sm font-bold text-white bg-teal-600 hover:bg-teal-700 rounded-lg shadow-sm transition-all hover:scale-105"
+        >
+          获取光速云专线方案 (含推广) →
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

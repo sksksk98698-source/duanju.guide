@@ -1,0 +1,89 @@
+---
+import { LINKS } from '../config/links'
+---
+
+<div
+  id="sticky-cta"
+  class="fixed bottom-0 inset-x-0 z-40 bg-gray-900/95 text-white border-t-2 border-teal-500 backdrop-blur-md px-4 py-3 shadow-2xl transition-transform duration-300 translate-y-0"
+  role="region"
+  aria-label="快速解锁专线推荐"
+>
+  <div class="mx-auto max-w-7xl flex flex-col sm:flex-row items-center justify-between gap-3">
+    <!-- Left badge & message -->
+    <div class="flex items-center gap-3">
+      <span class="hidden sm:inline-flex shrink-0 items-center justify-center h-8 w-8 rounded-full bg-teal-500 text-gray-950 font-bold">
+        ⚡
+      </span>
+      <div class="text-xs sm:text-sm text-center sm:text-left">
+        <div class="flex items-center justify-center sm:justify-start gap-2">
+          <span class="font-extrabold text-white">遇到短剧打不开、地区限制或持续转圈？</span>
+          <span class="px-1.5 py-0.2 rounded text-[10px] font-semibold bg-amber-400 text-gray-950">含推广</span>
+        </div>
+        <p class="text-gray-300 mt-0.5 text-[11px] sm:text-xs">
+          国内直连受海外版权与公网丢包限制。推荐启用 <strong class="text-teal-400 font-semibold">光速云 IEPL 专线</strong> 秒开，年付低至 99 元。
+        </p>
+      </div>
+    </div>
+
+    <!-- Right Coupon & CTA Button & Close -->
+    <div class="flex items-center gap-2 sm:gap-3 w-full sm:w-auto justify-center sm:justify-end">
+      <div class="hidden md:flex items-center gap-1.5 text-xs text-gray-300 bg-gray-800/80 px-2.5 py-1.5 rounded-lg border border-gray-700">
+        <span>新人 8 折码：</span>
+        <code class="font-mono font-bold text-teal-400 bg-gray-950 px-1.5 py-0.5 rounded border border-gray-600">AMM</code>
+      </div>
+
+      <a
+        href={LINKS.GSY_REGISTER}
+        target="_blank"
+        rel="nofollow sponsored noopener"
+        class="inline-flex items-center justify-center px-4 py-2 sm:px-5 sm:py-2.5 text-xs sm:text-sm font-bold text-gray-950 bg-teal-400 hover:bg-teal-300 rounded-lg shadow-md transition-transform hover:scale-105"
+      >
+        <span>一键解锁专线方案 →</span>
+      </a>
+
+      <button
+        id="close-sticky-btn"
+        type="button"
+        class="text-gray-400 hover:text-white p-1 rounded transition-colors text-lg leading-none cursor-pointer"
+        aria-label="最小化悬浮条"
+      >
+        ✕
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Minimized Floating Pill (When user closes sticky bar) -->
+<button
+  id="minimized-pill"
+  type="button"
+  class="hidden fixed bottom-4 right-4 z-40 inline-flex items-center gap-2 px-3.5 py-2 text-xs font-bold text-gray-950 bg-teal-400 hover:bg-teal-300 rounded-full shadow-xl border-2 border-white/20 transition-all hover:scale-105 cursor-pointer"
+  aria-label="重新展开看剧专线推荐"
+>
+  <span class="animate-pulse">⚡</span>
+  <span>看剧专线解锁 (含推广)</span>
+</button>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    const bar = document.getElementById('sticky-cta')
+    const pill = document.getElementById('minimized-pill')
+    const closeBtn = document.getElementById('close-sticky-btn')
+
+    closeBtn?.addEventListener('click', () => {
+      bar?.classList.add('translate-y-full')
+      setTimeout(() => {
+        bar?.classList.add('hidden')
+        pill?.classList.remove('hidden')
+      }, 300)
+    })
+
+    pill?.addEventListener('click', () => {
+      pill?.classList.add('hidden')
+      bar?.classList.remove('hidden')
+      setTimeout(() => {
+        bar?.classList.remove('translate-y-full')
+      }, 50)
+    })
+  })
+</script>

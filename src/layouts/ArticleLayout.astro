@@ -1,0 +1,186 @@
+---
+import BaseLayout from './BaseLayout.astro'
+import { SITE } from '../consts'
+import SafetyNotice from '../components/SafetyNotice.astro'
+import GSYCTA from '../components/GSYCTA.astro'
+
+interface BreadcrumbItem {
+  name: string
+  url: string
+}
+
+interface FaqItem {
+  question: string
+  answer: string
+}
+
+interface Props {
+  title: string
+  description: string
+  pubDate?: string
+  updatedDate?: string
+  category?: string
+  categoryName?: string
+  categoryUrl?: string
+  keywords?: string[]
+  breadcrumbs?: BreadcrumbItem[]
+  author?: string
+  showGSY?: boolean
+  cluster?: string
+  faq?: FaqItem[]
+}
+
+const {
+  title,
+  description,
+  pubDate = '2026-03-01',
+  updatedDate = '2026-09-30',
+  category = 'guide',
+  categoryName = '入口与教程',
+  categoryUrl = '/guide/',
+  keywords = [],
+  breadcrumbs = [
+    { name: '首页', url: '/' },
+    { name: categoryName, url: categoryUrl },
+    { name: title, url: Astro.url.pathname },
+  ],
+  author = '黄果短剧技术团队',
+  showGSY = false,
+  cluster,
+  faq,
+} = Astro.props
+
+const canonicalUrl = new URL(Astro.url.pathname, SITE.url).href
+
+// BreadcrumbList Schema
+const breadcrumbSchema = {
+  '@type': 'BreadcrumbList',
+  itemListElement: breadcrumbs.map((item, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    name: item.name,
+    item: new URL(item.url, SITE.url).href,
+  })),
+}
+
+// Article Schema
+const articleSchema = {
+  '@type': 'Article',
+  headline: title,
+  description: description,
+  datePublished: pubDate,
+  dateModified: updatedDate,
+  inLanguage: 'zh-CN',
+  author: {
+    '@type': 'Organization',
+    name: author,
+    url: SITE.url,
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: SITE.title,
+    url: SITE.url,
+    logo: {
+      '@type': 'ImageObject',
+      url: `${SITE.url}/logo.svg`,
+    },
+  },
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': canonicalUrl,
+  },
+}
+
+// FAQ Schema if provided
+const faqSchema =
+  faq && faq.length > 0
+    ? {
+        '@type': 'FAQPage',
+        mainEntity: faq.map((item) => ({
+          '@type': 'Question',
+          name: item.question,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: item.answer,
+          },
+        })),
+      }
+    : null
+
+const graphItems: any[] = [breadcrumbSchema, articleSchema]
+if (faqSchema) {
+  graphItems.push(faqSchema)
+}
+
+const combinedSchema = {
+  '@context': 'https://schema.org',
+  '@graph': graphItems,
+}
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  keywords={keywords}
+  canonical={canonicalUrl}
+  ogType="article"
+  schemaData={combinedSchema}
+>
+  <div class="mx-auto max-w-4xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+    <!-- Breadcrumb Navigation -->
+    <nav class="flex items-center gap-1.5 text-xs text-gray-500 mb-6 flex-wrap" aria-label="Breadcrumb">
+      {
+        breadcrumbs.map((crumb, idx) => (
+          <div class="flex items-center gap-1.5">
+            {idx > 0 && <span class="text-gray-300 dark:text-gray-700">/</span>}
+            {idx === breadcrumbs.length - 1 ? (
+              <span class="text-gray-800 font-medium dark:text-gray-200 line-clamp-1 max-w-[200px] sm:max-w-none">
+                {crumb.name}
+              </span>
+            ) : (
+              <a href={crumb.url} class="hover:text-teal-600 transition-colors dark:hover:text-teal-400">
+                {crumb.name}
+              </a>
+            )}
+          </div>
+        ))
+      }
+    </nav>
+
+    <!-- Article Header -->
+    <header class="border-b border-gray-100 pb-8 dark:border-gray-800">
+      <div class="flex flex-wrap items-center gap-2 mb-3">
+        <a
+          href={categoryUrl}
+          class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-teal-50 text-teal-700 border border-teal-200 dark:bg-teal-950 dark:text-teal-300 dark:border-teal-900"
+        >
+          {categoryName}
+        </a>
+        <span class="text-xs text-gray-400">更新时间：{updatedDate}</span>
+      </div>
+
+      <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight dark:text-white leading-tight">
+        {title}
+      </h1>
+
+      <p class="mt-4 text-base sm:text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+        {description}
+      </p>
+    </header>
+
+    <!-- Article Content -->
+    <article class="prose prose-slate max-w-none py-8 dark:prose-invert prose-headings:font-bold prose-headings:tracking-tight prose-a:text-teal-600 hover:prose-a:text-teal-700 prose-img:rounded-xl">
+      <slot />
+    </article>
+
+    <!-- Optional GSY CTA (strictly controlled by showGSY) -->
+    {showGSY && <GSYCTA variant="card" />}
+
+    <!-- Safety / Compliance Notice -->
+    <SafetyNotice
+      type="adult"
+      title="非官方指南与合规准则"
+      content="本指南为第三方网络环境与技术设置指引，不提供任何内容播放或下载服务。请在遵守当地法律法规的前提下规范使用网络工具。"
+    />
+  </div>
+</BaseLayout>

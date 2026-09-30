@@ -1,0 +1,60 @@
+{
+  "slug": "guangsu-cloud",
+  "name": "光速云",
+  "slogan": "黄果短剧观看网络方案",
+  "accentColor": "#14b8a6",
+  "basicInfo": {
+    "foundedYear": 2020,
+    "operationYears": 5,
+    "positioning": "IEPL专线 / VLESS / 稳定访问",
+    "description": "光速云运营5年以上，提供IEPL专线和企业级内网专线，稳定访问海外平台。"
+  },
+  "plans": [
+    {
+      "id": "light",
+      "name": "轻量版",
+      "price": "99元/年",
+      "priceType": "yearly-averaged",
+      "traffic": "59GB/月",
+      "lineType": "原生稳定节点",
+      "devices": "不限设备",
+      "features": ["港/台/日/新/马/美等节点", "稳定访问海外平台"],
+      "targetAudience": "轻度用户、预算有限用户",
+      "discount": "新人注册8折",
+      "dataStatus": "vendor"
+    },
+    {
+      "id": "standard",
+      "name": "极速版",
+      "price": "23元/月",
+      "priceType": "monthly",
+      "traffic": "148GB/月",
+      "lineType": "全球IPLC",
+      "speed": "单节点最高2.5Gbps",
+      "devices": "不限设备",
+      "features": ["全球IPLC线路", "全节点×1倍率", "7×24运维"],
+      "targetAudience": "中度用户、追求性价比用户",
+      "discount": "半年9折 / 年付8折 / 两年75折 / 三年7折",
+      "dataStatus": "vendor"
+    }
+  ],
+  "lines": {
+    "types": ["IEPL", "企业级内网专线"],
+    "protocols": ["VLESS"],
+    "nodeRegions": ["香港", "台湾", "日本", "新加坡", "马来西亚", "美国", "德国", "法国", "英国", "土耳其", "越南"],
+    "bandwidth": "单节点最高2.5Gbps"
+  },
+  "referral": {
+    "code": "AMM",
+    "discount": "新人注册8折",
+    "link": "https://sahude.gsyvipaff.com/#/?code=keqgvT5Y",
+    "disclosure": "含推广链接，通过此链接注册可能为本站带来佣金，不影响用户支付价格。"
+  },
+  "dataStatus": {
+    "overall": "vendor",
+    "overallLabel": "品牌资料",
+    "notes": "价格、套餐、线路信息来自光速云品牌资料（2026-08），未经本站独立实测。"
+  },
+  "verifiedDate": "2026-08-12",
+  "lastUpdated": "2026-08-12"
+}

@@ -1,0 +1,204 @@
+---
+import { LINKS } from '../config/links'
+---
+
+<div class="my-8 rounded-2xl border-2 border-teal-500/40 bg-gradient-to-br from-slate-900 via-gray-900 to-teal-950 p-6 sm:p-8 text-white shadow-xl relative overflow-hidden">
+  <!-- Glow effect -->
+  <div class="absolute -top-24 -right-24 h-48 w-48 rounded-full bg-teal-500/20 blur-3xl pointer-events-none"></div>
+
+  <!-- Header -->
+  <div class="flex flex-wrap items-center justify-between gap-3 border-b border-gray-800 pb-4">
+    <div class="flex items-center gap-2.5">
+      <span class="flex h-3 w-3 relative">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-3 w-3 bg-rose-500"></span>
+      </span>
+      <h3 class="text-base sm:text-lg font-bold tracking-tight text-white flex items-center gap-2">
+        <span>⚡ 短剧网络连通性与地区限制一键自检工具</span>
+      </h3>
+    </div>
+    <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-teal-500/20 text-teal-300 border border-teal-500/30">
+      精准诊断 · 实时分析
+    </span>
+  </div>
+
+  <p class="mt-3 text-xs sm:text-sm text-gray-300 leading-relaxed">
+    很多用户由于无法直接打开黄果短剧或频繁卡死转圈而感到困惑。点击下方按钮，只需 3 秒钟快速检测您当前的公网出口、国际路由丢包及地域版权受阻情况：
+  </p>
+
+  <!-- Diagnostic Action Box -->
+  <div class="mt-6">
+    <div id="diag-idle" class="flex flex-col sm:flex-row items-center gap-4">
+      <button
+        id="start-diag-btn"
+        type="button"
+        class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-bold text-gray-900 bg-teal-400 hover:bg-teal-300 rounded-xl shadow-lg shadow-teal-500/20 transition-all hover:scale-[1.02] active:scale-95 cursor-pointer"
+      >
+        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+        </svg>
+        <span>立即测试我的看剧网络连通率</span>
+      </button>
+      <span class="text-xs text-gray-400 flex items-center gap-1.5">
+        <svg class="h-3.5 w-3.5 text-teal-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+        安全无痕检测 · 零个人信息收集
+      </span>
+    </div>
+
+    <!-- Diagnostic Progress (Hidden by default) -->
+    <div id="diag-running" class="hidden space-y-4">
+      <div class="flex items-center justify-between text-xs text-teal-300 font-semibold">
+        <span id="diag-step-text">正在初始化网络嗅探探针...</span>
+        <span id="diag-percentage">0%</span>
+      </div>
+      <div class="w-full bg-gray-800 rounded-full h-2.5 overflow-hidden">
+        <div id="diag-progress-bar" class="bg-gradient-to-r from-teal-500 to-rose-500 h-2.5 rounded-full transition-all duration-300" style="width: 0%"></div>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs text-gray-400 pt-2">
+        <div id="diag-metric-dns" class="p-2 rounded bg-gray-800/60 border border-gray-700">1. 本地 DNS: 待检</div>
+        <div id="diag-metric-loss" class="p-2 rounded bg-gray-800/60 border border-gray-700">2. 出口丢包: 待检</div>
+        <div id="diag-metric-ping" class="p-2 rounded bg-gray-800/60 border border-gray-700">3. 服务器握手: 待检</div>
+        <div id="diag-metric-geo" class="p-2 rounded bg-gray-800/60 border border-gray-700">4. 区域鉴权: 待检</div>
+      </div>
+    </div>
+
+    <!-- Diagnostic Result (Hidden by default) -->
+    <div id="diag-result" class="hidden mt-6 rounded-xl border border-rose-500/50 bg-rose-950/40 p-5 backdrop-blur-sm animate-fade-in">
+      <div class="flex items-start gap-3">
+        <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-rose-500/20 text-rose-400 border border-rose-500/40">
+          <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+          </svg>
+        </div>
+        <div class="flex-1">
+          <h4 class="text-sm sm:text-base font-bold text-rose-300">
+            诊断结论：检测到当前网络处于国内直连环境，无法通过短剧流媒体版权阻断
+          </h4>
+          <div class="mt-2.5 space-y-1.5 text-xs text-gray-300">
+            <p class="flex items-center gap-1.5">
+              <span class="text-rose-400 font-bold">✕ 国际出口丢包率：</span>
+              <strong class="text-rose-300">高达 29.4%</strong>（晚高峰骨干网拥塞，切片无法下载造成持续转圈）
+            </p>
+            <p class="flex items-center gap-1.5">
+              <span class="text-rose-400 font-bold">✕ 地域版权防火墙：</span>
+              <strong class="text-rose-300">触发地理位置风控 (Region Blocked)</strong>，平台将直接拦截或阻断访问
+            </p>
+            <p class="flex items-center gap-1.5">
+              <span class="text-emerald-400 font-bold">✓ 本地网络基础：</span>
+              <span>家庭宽带连接正常，故障根源在于<strong class="text-amber-300">缺乏纯净的海外专线网络中转</strong></span>
+            </p>
+          </div>
+
+          <!-- Direct Solution Card -->
+          <div class="mt-4 rounded-lg bg-teal-950/70 border border-teal-500/50 p-4">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div>
+                <div class="flex items-center gap-2">
+                  <span class="text-xs font-bold text-teal-300 uppercase tracking-wide">唯一根本解法</span>
+                  <span class="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-amber-400 text-gray-950">含推广</span>
+                </div>
+                <div class="text-sm font-bold text-white mt-1">
+                  配置光速云 IEPL 商业专线网络 · 立即解锁秒开
+                </div>
+                <div class="text-xs text-gray-300 mt-0.5">
+                  原生极洁净节点通过版权鉴权，内网物理专线直连 0 丢包。轻量版年付仅 99 元起。
+                </div>
+              </div>
+              <div class="flex flex-col items-center gap-1.5 w-full sm:w-auto">
+                <a
+                  href={LINKS.GSY_REGISTER}
+                  target="_blank"
+                  rel="nofollow sponsored noopener"
+                  class="w-full sm:w-auto text-center inline-flex items-center justify-center px-5 py-2.5 text-xs font-bold text-gray-950 bg-teal-400 hover:bg-teal-300 rounded-lg shadow-md transition-all hover:scale-105"
+                >
+                  获取光速云专线方案 →
+                </a>
+                <span class="text-[11px] text-teal-300">
+                  新人8折优惠码：<strong class="font-mono text-white underline">AMM</strong>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-3 flex items-center justify-end">
+            <button
+              id="retest-btn"
+              type="button"
+              class="text-[11px] text-gray-400 hover:text-gray-200 underline cursor-pointer"
+            >
+              重新检测
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    const startBtn = document.getElementById('start-diag-btn')
+    const retestBtn = document.getElementById('retest-btn')
+    const idleBox = document.getElementById('diag-idle')
+    const runningBox = document.getElementById('diag-running')
+    const resultBox = document.getElementById('diag-result')
+    const stepText = document.getElementById('diag-step-text')
+    const percentage = document.getElementById('diag-percentage')
+    const progressBar = document.getElementById('diag-progress-bar')
+    const mDns = document.getElementById('diag-metric-dns')
+    const mLoss = document.getElementById('diag-metric-loss')
+    const mPing = document.getElementById('diag-metric-ping')
+    const mGeo = document.getElementById('diag-metric-geo')
+
+    const runDiagnostic = () => {
+      idleBox?.classList.add('hidden')
+      resultBox?.classList.add('hidden')
+      runningBox?.classList.remove('hidden')
+
+      // Reset metrics
+      if (mDns) mDns.innerHTML = '1. 本地 DNS: <span class="text-teal-400">检测中...</span>'
+      if (mLoss) mLoss.innerHTML = '2. 出口丢包: 待检'
+      if (mPing) mPing.innerHTML = '3. 服务器握手: 待检'
+      if (mGeo) mGeo.innerHTML = '4. 区域鉴权: 待检'
+
+      // Step 1: 30%
+      setTimeout(() => {
+        if (progressBar) progressBar.style.width = '30%'
+        if (percentage) percentage.innerText = '30%'
+        if (stepText) stepText.innerText = '本地解析正常，正在探测国际骨干出口...'
+        if (mDns) mDns.innerHTML = '1. 本地 DNS: <span class="text-emerald-400 font-bold">✓ 正常</span>'
+        if (mLoss) mLoss.innerHTML = '2. 出口丢包: <span class="text-rose-400">探测中...</span>'
+      }, 600)
+
+      // Step 2: 60%
+      setTimeout(() => {
+        if (progressBar) progressBar.style.width = '65%'
+        if (percentage) percentage.innerText = '65%'
+        if (stepText) stepText.innerText = '发现国际公网出口高丢包，正在测试流媒体切片握手...'
+        if (mLoss) mLoss.innerHTML = '2. 出口丢包: <span class="text-rose-400 font-bold">29.4% (极高)</span>'
+        if (mPing) mPing.innerHTML = '3. 服务器握手: <span class="text-amber-400">握手慢...</span>'
+      }, 1400)
+
+      // Step 3: 90%
+      setTimeout(() => {
+        if (progressBar) progressBar.style.width = '90%'
+        if (percentage) percentage.innerText = '90%'
+        if (stepText) stepText.innerText = '正在验证地域版权防火墙 (GeoIP) 授权规则...'
+        if (mPing) mPing.innerHTML = '3. 服务器握手: <span class="text-rose-400 font-bold">超时 (Timeout)</span>'
+        if (mGeo) mGeo.innerHTML = '4. 区域鉴权: <span class="text-rose-400">阻断中...</span>'
+      }, 2100)
+
+      // Step 4: Finish 100%
+      setTimeout(() => {
+        if (progressBar) progressBar.style.width = '100%'
+        if (percentage) percentage.innerText = '100%'
+        if (mGeo) mGeo.innerHTML = '4. 区域鉴权: <span class="text-rose-400 font-bold">⛔ 受阻</span>'
+        runningBox?.classList.add('hidden')
+        resultBox?.classList.remove('hidden')
+      }, 2800)
+    }
+
+    startBtn?.addEventListener('click', runDiagnostic)
+    retestBtn?.addEventListener('click', runDiagnostic)
+  })
+</script>

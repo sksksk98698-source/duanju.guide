@@ -1,0 +1,206 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Card from '../components/Card.astro'
+import GSYCTA from '../components/GSYCTA.astro'
+import SafetyNotice from '../components/SafetyNotice.astro'
+import DirectVsProxyComparison from '../components/DirectVsProxyComparison.astro'
+import StickyCTA from '../components/StickyCTA.astro'
+import { SITE } from '../consts'
+import { LINKS } from '../config/links'
+
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: SITE.title,
+  alternateName: 'duanju.guide',
+  url: SITE.url,
+  description: SITE.description,
+  inLanguage: 'zh-CN',
+  publisher: {
+    '@type': 'Organization',
+    name: SITE.title,
+    url: SITE.url,
+    logo: {
+      '@type': 'ImageObject',
+      url: `${SITE.url}/logo.svg`,
+    },
+  },
+}
+---
+
+<BaseLayout
+  title={`${SITE.title} - ${SITE.subtitle}`}
+  description={`${SITE.description}。致力于帮助用户解决黄果短剧打不开、地区限制、视频加载转圈等访问故障，提供客观、纯净的网络优化指南。`}
+  keywords={['黄果短剧', '黄果短剧官网', '黄果短剧打不开', '黄果短剧地区限制', '黄果短剧教程', '看黄果不卡顿', 'duanju.guide']}
+  canonical={SITE.url}
+  schemaData={websiteSchema}
+>
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden bg-gradient-to-b from-teal-50/70 via-white to-white py-16 sm:py-24 border-b border-gray-100 dark:from-teal-950/20 dark:via-gray-950 dark:to-gray-950 dark:border-gray-800">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+      <!-- Domain Badge -->
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-teal-100 text-teal-800 border border-teal-200 mb-6 dark:bg-teal-950 dark:text-teal-300 dark:border-teal-800">
+        <span class="inline-block h-2 w-2 rounded-full bg-teal-500 animate-pulse"></span>
+        <span>独立技术指南 · 官方域名：<strong>duanju.guide</strong></span>
+      </div>
+
+      <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+        黄果短剧观看指南
+      </h1>
+      <p class="mt-4 text-base sm:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">
+        入口导航 · 使用教程 · 访问问题解决 · <span class="font-semibold text-teal-700 dark:text-teal-300">看黄果，不卡顿</span>
+      </p>
+
+      <!-- Main Action Buttons -->
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+        <a href="/guide/official-site/latest-address-2026/" class="btn-primary">
+          黄果短剧官网入口
+        </a>
+        <a href="/problems/cant-open/dns-resolution-failure/" class="btn-secondary">
+          打不开怎么办？
+        </a>
+        <a href="/gsy/" class="btn-secondary">
+          光速云使用指南
+        </a>
+      </div>
+
+      <!-- Quick Trust Indicators -->
+      <div class="mt-10 flex flex-wrap items-center justify-center gap-6 text-xs text-gray-500 dark:text-gray-400">
+        <span class="flex items-center gap-1.5">
+          <svg class="h-4 w-4 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+          无成人内容描述
+        </span>
+        <span class="flex items-center gap-1.5">
+          <svg class="h-4 w-4 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+          不提供盗播下载
+        </span>
+        <span class="flex items-center gap-1.5">
+          <svg class="h-4 w-4 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+          真实客观评测
+        </span>
+        <span class="flex items-center gap-1.5">
+          <svg class="h-4 w-4 text-rose-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+          仅限 18 岁以上用户访问
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Diagnostic Callout Banner -->
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 -mt-6 relative z-10">
+    <div class="rounded-2xl border-2 border-teal-500/50 bg-gradient-to-r from-teal-950 via-gray-900 to-slate-900 p-4 sm:p-5 text-white shadow-xl flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-teal-400 text-gray-950 font-extrabold text-lg shadow-sm">
+          ⚡
+        </span>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-extrabold text-white text-sm sm:text-base">看剧提示“当前地区受限”或一直转圈？</span>
+            <span class="px-1.5 py-0.2 rounded text-[10px] font-semibold bg-amber-400 text-gray-950">含推广</span>
+          </div>
+          <p class="text-xs text-gray-300 mt-0.5">
+            短剧服务器部署于海外，普通网络直连受阻。配置光速云 IEPL 专线秒开，新人 8 折优惠码 <strong class="text-teal-300 font-mono">AMM</strong>。
+          </p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2.5 w-full sm:w-auto">
+        <a href="/problems/" class="flex-1 sm:flex-initial text-center inline-flex items-center justify-center px-4 py-2 text-xs font-bold text-white bg-gray-800 hover:bg-gray-700 rounded-lg border border-gray-700 transition-colors">
+          一键自检排查
+        </a>
+        <a href={LINKS.GSY_REGISTER} target="_blank" rel="nofollow sponsored noopener" class="flex-1 sm:flex-initial text-center inline-flex items-center justify-center px-5 py-2 text-xs font-bold text-gray-950 bg-teal-400 hover:bg-teal-300 rounded-lg shadow-md transition-all hover:scale-105">
+          获取专线方案 →
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6 Feature Grids: Core Clusters -->
+  <section class="py-12 sm:py-16 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-2xl mx-auto mb-10">
+      <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
+        高频指南与解决方案导航
+      </h2>
+      <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
+        无论是首次进入、安装配置，还是遇到视频缓冲卡顿，均可在此找到经过实测验证的有效步骤
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <Card
+        title="官网入口导航"
+        description="2026最新黄果短剧官方地址识别技巧，有效防伪防走丢，辨别假冒钓鱼镜像站与防风险指南。"
+        href="/guide/official-site/latest-address-2026/"
+        tag="入口指南"
+        badge="必备"
+      />
+      <Card
+        title="App 下载与安装"
+        description="iOS 客户端 TestFlight 与企业证书安装，安卓 APK 纯净安装包风险校验与权限最小化配置。"
+        href="/guide/download/ios-installation-steps/"
+        tag="客户端教程"
+      />
+      <Card
+        title="打不开怎么办？"
+        description="网页无法访问、DNS解析失败或白屏死循环全方位排错方案，本地网络自检四步恢复正常。"
+        href="/problems/cant-open/dns-resolution-failure/"
+        tag="核心故障排查"
+        badge="高频问题"
+      />
+      <Card
+        title="地区限制怎么办？"
+        description="提示“当前地区暂不支持播放”的底层地理版权阻断原理与原生纯净节点解决方案。"
+        href="/problems/region-lock/geoblocking-explained/"
+        tag="转化排查桥"
+        badge="核心痛点"
+      />
+      <Card
+        title="一直转圈与卡顿排查"
+        description="晚高峰国际出口丢包与运营商QoS限速分析，大带宽专线告别缓冲秒级起播。"
+        href="/problems/buffering/video-loading-stuck/"
+        tag="播放优化"
+      />
+      <Card
+        title="观看安全吗？防诈防坑"
+        description="第三方聚合平台风险提示、公共Wi-Fi侦听防范、账号防盗与双重验证最佳实践。"
+        href="/compare/safety/anti-fraud-precautions/"
+        tag="安全防护"
+      />
+    </div>
+
+    <!-- Direct vs Private Line Visual Comparison Matrix -->
+    <div class="mt-14">
+      <DirectVsProxyComparison />
+    </div>
+
+    <!-- Quick Conversion Section -->
+    <div class="mt-10">
+      <div class="text-center max-w-xl mx-auto mb-6">
+        <h3 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
+          告别打不开与视频缓冲：推荐网络方案
+        </h3>
+        <p class="mt-1.5 text-xs sm:text-sm text-gray-500 dark:text-gray-400">
+          基于 IEPL 企业级物理专线直连，从根源解决因公网拥堵造成的短剧加载失败
+        </p>
+      </div>
+
+      <GSYCTA
+        variant="card"
+        title="光速云 · 5年老牌稳定专线方案"
+        description="原生香港/台湾/新加坡/日本/美国节点，支持多端不限设备连接。单节点最高 2.5Gbps 带宽，轻量版年付低至 99 元起（输入优惠码 AMM 享新人 8 折）。"
+        buttonText="直达光速云官方注册 (含推广) →"
+      />
+    </div>
+
+    <!-- 18+ Mandatory Disclaimer Box -->
+    <div class="mt-10">
+      <SafetyNotice
+        type="adult"
+        title="18+ 年龄与服务准入特别声明"
+        content="本站为独立的黄果短剧观看指南网站，与黄果短剧平台不存在隶属关系。本站不提供任何内容播放、下载或传播服务。内容仅限 18 岁以上完全民事行为能力人作为网络技术设置参考。"
+      />
+    </div>
+  </section>
+
+  <!-- Sticky Bottom CTA -->
+  <StickyCTA />
+</BaseLayout>
